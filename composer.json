@@ -1,0 +1,25 @@
+{
+    "name": "webignition/html-document-type-generator",
+    "description": "Generate a doctype for a given HTML version and variant",
+    "keywords": ["html", "document", "doctype", "generator"],
+    "homepage": "https://github.com/webignition/html-document-type-generator",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jon Cram",
+            "email": "jon@webignition.net"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "webignition\\Tests": "tests/",
+            "": "src/"
+        }
+    },
+    "require-dev": {
+        "symfony/class-loader": "*",
+        "phpunit/phpunit": "3.7.*"
+    },            
+    "minimum-stability":"stable"
+}
