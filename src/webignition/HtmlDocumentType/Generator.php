@@ -179,6 +179,20 @@ class Generator {
     private $variant = null;
     
     
+    /**
+     *
+     * @var boolean
+     */
+    private $multiline = false;
+    
+    
+    /**
+     *
+     * @var int
+     */
+    private $indent = 4;
+    
+    
     public function generate() {
         if (!$this->hasVersion()) {
             throw new \InvalidArgumentException('Unable to generate; no version given', 1);
@@ -196,10 +210,27 @@ class Generator {
         
         if ($this->hasUri()) {
             $parts[] = '"' . $this->getUri() . '"';
+        }        
+     
+        return self::DOCTYPE_PREFIX . $this->getPartContents($parts) . self::DOCTYPE_SUFFIX;
+    }
+    
+    
+    /**
+     * 
+     * @param array $parts
+     * @return string
+     */
+    private function getPartContents($parts) {
+        if (count($parts) == 0) {
+            return '';
         }
         
-        $partContents = (count($parts)) ? ' ' . implode(' ', $parts) : '';        
-        return self::DOCTYPE_PREFIX . $partContents . self::DOCTYPE_SUFFIX;
+        if ($this->multiline == false) {
+            return ' ' . implode(' ', $parts);
+        }
+        
+        return ' ' . implode("\n" . str_repeat(' ', $this->indent), $parts);
     }
     
     
@@ -421,7 +452,28 @@ class Generator {
     public function variant($variant) {
         $this->variant = (string)$variant;
         return $this;
-    }     
+    } 
+    
+    
+    /**
+     * 
+     * @return \webignition\HtmlDocumentType\Generator
+     */
+    public function multiline() {
+        $this->multiline = true;
+        return $this;
+    }
+    
+    
+    /**
+     * 
+     * @param int $indentLevel
+     * @return \webignition\HtmlDocumentType\Generator
+     */
+    public function indent($indentLevel) {
+        $this->indent = $indentLevel;
+        return $this;
+    }
     
     
     /**

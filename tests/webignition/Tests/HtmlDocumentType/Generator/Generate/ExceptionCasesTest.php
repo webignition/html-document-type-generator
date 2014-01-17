@@ -1,7 +1,8 @@
 <?php
 
-namespace webignition\Tests\HtmlDocumentType\Generator;
+namespace webignition\Tests\HtmlDocumentType\Generator\Generate;
 
+use webignition\Tests\HtmlDocumentType\Generator\BaseTest;
 use webignition\HtmlDocumentType\Generator;
 
 class ExceptionCasesTest extends BaseTest {    
