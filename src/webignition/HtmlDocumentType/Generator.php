@@ -12,8 +12,35 @@ namespace webignition\HtmlDocumentType;
  */
 class Generator {
     
-     const DOCTYPE_PREFIX = '<!DOCTYPE html';
-     const DOCTYPE_SUFFIX = '>';
+    const DOCTYPE_PREFIX = '<!DOCTYPE html';
+    const DOCTYPE_SUFFIX = '>';
+    
+    private $knownMatrix = array(
+        'html' => array(
+            array('version' => '2'),
+            array('version' => '3.2'),
+            array('version' => '4', 'variant' => 'strict'),
+            array('version' => '4', 'variant' => 'transitional'),
+            array('version' => '4', 'variant' => 'frameset'),
+            array('version' => '4.01', 'variant' => 'strict'),
+            array('version' => '4.01', 'variant' => 'transitional'),
+            array('version' => '4.01', 'variant' => 'frameset'),           
+            array('version' => '5')
+        ),
+        'xhtml' => array(
+            array('version' => '1', 'variant' => 'strict'),
+            array('version' => '1', 'variant' => 'transitional'),
+            array('version' => '1', 'variant' => 'frameset'),
+            array('version' => '1', 'isBasic' => true),
+            array('version' => '1.1'),
+            array('version' => '1.1', 'isBasic' => true),           
+        ),        
+        'xhtmlrdfa' => array(
+            array('version' => '1'),
+            array('version' => '1.1'),            
+        )
+    ); 
+         
     
     private $versionAndVariantToFpiMap = array(
         'html' => array(
@@ -173,6 +200,35 @@ class Generator {
         
         $partContents = (count($parts)) ? ' ' . implode(' ', $parts) : '';        
         return self::DOCTYPE_PREFIX . $partContents . self::DOCTYPE_SUFFIX;
+    }
+    
+    
+    public function getAllKnown() {
+        $allDoctypes = array();
+        
+        foreach ($this->knownMatrix as $category => $instances) {
+            foreach ($instances as $instance) {
+                $key = $category.'-'.str_replace('.', '', $instance['version']);
+                
+                $generator = new Generator();
+                $generator->$category();
+                $generator->version($instance['version']);
+                
+                if (isset($instance['variant'])) {
+                    $key .= '-' . $instance['variant'];
+                    $generator->variant($instance['variant']);
+                }
+                
+                if (isset($instance['isBasic'])) {
+                    $key .= '-basic';
+                    $generator->xhtmlBasic();
+                }
+                
+                $allDoctypes[$key] = $generator->generate();
+            }
+        }
+        
+        return $allDoctypes;
     }
     
     
