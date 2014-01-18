@@ -250,6 +250,15 @@ class Generator {
                 $key = $category.'-'.str_replace('.', '', $instance['version']);
                 
                 $generator = new Generator();
+                
+                if ($this->multiline === true) {
+                    $generator->multiline();
+                }
+                
+                if ($this->noUri === true) {
+                    $generator->noUri();
+                }
+                
                 $generator->$category();
                 $generator->version($instance['version']);
                 
