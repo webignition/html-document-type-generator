@@ -193,6 +193,14 @@ class Generator {
     private $indent = 4;
     
     
+    /**
+     *
+     * @var boolean
+     */
+    private $noUri = false;
+    
+    
+    
     public function generate() {
         if (!$this->hasVersion()) {
             throw new \InvalidArgumentException('Unable to generate; no version given', 1);
@@ -208,7 +216,7 @@ class Generator {
             $parts[] = '"' . $this->getFpi() . '"';
         }
         
-        if ($this->hasUri()) {
+        if ($this->noUri === false && $this->hasUri()) {
             $parts[] = '"' . $this->getUri() . '"';
         }        
      
@@ -503,6 +511,16 @@ class Generator {
         }
         
         return null;
+    }    
+    
+    
+    /**
+     * 
+     * @return \webignition\HtmlDocumentType\Generator
+     */
+    public function noUri() {
+        $this->noUri = true;
+        return $this;
     }
     
 }

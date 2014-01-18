@@ -21,5 +21,6 @@ class SettersReturnSelfTest extends BaseTest {
     public function testXhtmlBasic() {}
     public function testMultiline() {}
     public function testIndent() {}        
+    public function testNoUri() {}
     
 }

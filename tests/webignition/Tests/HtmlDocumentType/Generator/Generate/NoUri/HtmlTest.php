@@ -1,0 +1,95 @@
+<?php
+
+namespace webignition\Tests\HtmlDocumentType\Generate\NoUri;
+
+use webignition\Tests\HtmlDocumentType\Generator\BaseTest;
+use webignition\HtmlDocumentType\Generator;
+
+class HtmlTest extends BaseTest {    
+    
+    private $generator;
+    
+    public function setUp() {
+        $this->generator = new Generator();
+        $this->generator->html()->noUri();
+    }
+    
+    public function testHtml2Default() {
+        $this->assertEquals(
+                '<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">',
+                $this->generator->version(2)->generate()
+         );
+    }            
+
+    public function testHtml32Default() {
+        $this->assertEquals(
+                '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">',
+                $this->generator->version('3.2')->generate()
+        );
+    }        
+    
+    public function testHtml40Default() {
+        $this->assertEquals(
+                '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN">',
+                $this->generator->version('4')->generate()
+        );
+    }     
+    
+    public function testHtml40Strict() {
+        $this->assertEquals(
+                '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN">',
+                $this->generator->version('4')->variant('strict')->generate()
+        );
+    } 
+    
+    public function testHtml40Transitional() {
+        $this->assertEquals(
+                '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">',
+                $this->generator->version('4')->variant('transitional')->generate()
+        );
+    } 
+    
+    public function testHtml40Frameset() {
+        $this->assertEquals(
+                '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Frameset//EN">',
+                $this->generator->version('4')->variant('frameset')->generate()
+        );
+    }  
+    
+    public function testHtml41Default() {
+        $this->assertEquals(
+                '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">',
+                $this->generator->version('4.01')->generate()
+        );
+    }     
+    
+    public function testHtml41Strict() {
+        $this->assertEquals(
+                '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">',
+                $this->generator->version('4.01')->variant('strict')->generate()
+        );
+    } 
+    
+    public function testHtml41Transitional() {
+        $this->assertEquals(
+                '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">',
+                $this->generator->version('4.01')->variant('transitional')->generate()
+        );
+    } 
+    
+    public function testHtml41Frameset() {
+        $this->assertEquals(
+                '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">',
+                $this->generator->version('4.01')->variant('frameset')->generate()
+        );
+    }     
+    
+    public function testHtml5Default() {
+        $this->assertEquals(
+                '<!DOCTYPE html>',
+                $this->generator->version(5)->generate()
+        );
+    }   
+    
+
+}
