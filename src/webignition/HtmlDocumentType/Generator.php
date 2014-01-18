@@ -475,6 +475,16 @@ class Generator {
     
     /**
      * 
+     * @return \webignition\HtmlDocumentType\Generator
+     */
+    public function singleline() {
+        $this->multiline = false;
+        return $this;
+    }
+    
+    
+    /**
+     * 
      * @param int $indentLevel
      * @return \webignition\HtmlDocumentType\Generator
      */
