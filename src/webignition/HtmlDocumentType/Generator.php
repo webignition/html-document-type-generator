@@ -200,6 +200,13 @@ class Generator {
     private $noUri = false;
     
     
+    /**
+     *
+     * @var boolean
+     */
+    private $lowercasePrefix = false;
+    
+    
     
     public function generate() {
         if (!$this->hasVersion()) {
@@ -220,8 +227,18 @@ class Generator {
             $parts[] = '"' . $this->getUri() . '"';
         }        
      
-        return self::DOCTYPE_PREFIX . $this->getPartContents($parts) . self::DOCTYPE_SUFFIX;
+        return $this->getDoctypePrefix() . $this->getPartContents($parts) . self::DOCTYPE_SUFFIX;
     }
+    
+    
+    /**
+     * 
+     * @return string
+     */
+    private function getDoctypePrefix() {
+        return ($this->lowercasePrefix) ? strtolower(self::DOCTYPE_PREFIX) : self::DOCTYPE_PREFIX;
+    }
+
     
     
     /**
@@ -257,6 +274,10 @@ class Generator {
                 
                 if ($this->noUri === true) {
                     $generator->noUri();
+                }
+                
+                if ($this->lowercasePrefix === true) {
+                    $generator->lowercasePrefix();
                 }
                 
                 $generator->$category();
@@ -539,6 +560,26 @@ class Generator {
      */
     public function noUri() {
         $this->noUri = true;
+        return $this;
+    }
+    
+    
+    /**
+     * 
+     * @return \webignition\HtmlDocumentType\Generator
+     */
+    public function lowercasePrefix() {
+        $this->lowercasePrefix = true;
+        return $this;
+    }
+    
+    
+    /**
+     * 
+     * @return \webignition\HtmlDocumentType\Generator
+     */
+    public function uppercasePrefix() {
+        $this->lowercasePrefix = false;
         return $this;
     }
     
