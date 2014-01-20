@@ -23,14 +23,14 @@ class XhtmlMobileTest extends BaseTest {
     
     public function testXhtmlMobile11() {
         $this->assertEquals(
-                '<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.1//EN" "http://www.wapforum.org/DTD/xhtml-mobile11.dtd">',
+                '<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.1//EN" "http://www.openmobilealliance.org/tech/DTD/xhtml-mobile11.dtd">',
                 $this->generator->version('1.1')->generate()
          );        
     } 
     
     public function testXhtmlMobile12() {
         $this->assertEquals(
-                '<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.2//EN" "http://www.wapforum.org/DTD/xhtml-mobile12.dtd">',
+                '<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.2//EN" "http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd">',
                 $this->generator->version('1.2')->generate()
          );        
     }     

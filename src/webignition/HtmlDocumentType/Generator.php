@@ -9,14 +9,20 @@ namespace webignition\HtmlDocumentType;
  * 
  * It is up to the user to ensure that allowable properties result in valid
  * doctypes.
+ * 
+ * For uri variants:
+ * http://devfiles.myopera.com/articles/570/doctype-ci-url.htm* 
  */
 class Generator {
     
     const DOCTYPE_PREFIX = '<!DOCTYPE html';
     const DOCTYPE_SUFFIX = '>';
     
-    const FPI_HTML_2 = '-//IETF//DTD HTML 2.0//EN';
+    const FPI_HTML_2 = '-//IETF//DTD HTML//EN';
+    const FPI_HTML_2_ALT = '-//IETF//DTD HTML 2.0//EN';
     const FPI_HTML_3_2 = '-//W3C//DTD HTML 3.2 Final//EN';
+    const FPI_HTML_3_2_ALT1 = '-//W3C//DTD HTML 3.2//EN';
+    const FPI_HTML_3_2_ALT2 = '-//W3C//DTD HTML 3.2 Draft//EN';
     const FPI_HTML_4_STRICT = '-//W3C//DTD HTML 4.0//EN';
     const FPI_HTML_4_TRANSITIONAL = '-//W3C//DTD HTML 4.0 Transitional//EN';
     const FPI_HTML_4_FRAMESET = '-//W3C//DTD HTML 4.0 Frameset//EN';
@@ -27,6 +33,8 @@ class Generator {
     const FPI_HTML_4_01_RDFA_1 = '-//W3C//DTD HTML 4.01+RDFa 1.0//EN';
     const FPI_HTML_4_01_RDFA_1_1 = '-//W3C//DTD HTML 4.01+RDFa 1.1//EN';
     const FPI_HTML_4_01_RDFALITE_1_1 = '-//W3C//DTD HTML 4.01+RDFa Lite 1.1//EN';
+    const FPI_HTML_ISO_15445 = 'ISO/IEC 15445:2000//DTD HTML//EN';
+    const FPI_HTML_ISO_15445_ALT = 'ISO/IEC 15445:2000//DTD HyperText Markup Language//EN';
     const FPI_XHTML_1_STRICT = '-//W3C//DTD XHTML 1.0 Strict//EN';
     const FPI_XHTML_1_TRANSITIONAL = '-//W3C//DTD XHTML 1.0 Transitional//EN';
     const FPI_XHTML_1_FRAMESET = '-//W3C//DTD XHTML 1.0 Frameset//EN';
@@ -43,7 +51,10 @@ class Generator {
     
     private $fpis = array(
         self::FPI_HTML_2,
+        self::FPI_HTML_2_ALT,
         self::FPI_HTML_3_2,
+        self::FPI_HTML_3_2_ALT1,
+        self::FPI_HTML_3_2_ALT2,
         self::FPI_HTML_4_STRICT,
         self::FPI_HTML_4_TRANSITIONAL,
         self::FPI_HTML_4_FRAMESET,
@@ -54,6 +65,8 @@ class Generator {
         self::FPI_HTML_4_01_RDFA_1,
         self::FPI_HTML_4_01_RDFA_1_1,
         self::FPI_HTML_4_01_RDFALITE_1_1,
+        self::FPI_HTML_ISO_15445,
+        self::FPI_HTML_ISO_15445_ALT,
         self::FPI_XHTML_1_STRICT,
         self::FPI_XHTML_1_TRANSITIONAL,
         self::FPI_XHTML_1_FRAMESET,
@@ -72,7 +85,10 @@ class Generator {
     private $knownMatrix = array(
         'html' => array(
             array('version' => '2'),
+            array('version' => '2', 'variant' => 'alternative'),
             array('version' => '3.2'),
+            array('version' => '3.2', 'variant' => 'alternative1'),
+            array('version' => '3.2', 'variant' => 'alternative2'),
             array('version' => '4', 'variant' => 'strict'),
             array('version' => '4', 'variant' => 'transitional'),
             array('version' => '4', 'variant' => 'frameset'),
@@ -115,14 +131,25 @@ class Generator {
         ),
         'html+rdfalite' => array(
             array('version' => '4.01', 'moduleVersion' => '1.1'),
-        )        
+        ),
+        'html+iso15445' => array(
+            array('version' => '1'),
+            array('version' => '1', 'variant' => 'alternative'),
+        )
     );
          
     
     private $versionAndVariantToFpiMap = array(
         'html' => array(
-            '2' => self::FPI_HTML_2,
-            '3.2' => self::FPI_HTML_3_2,
+            '2' => array(
+                'default' => self::FPI_HTML_2,
+                'alternative' => self::FPI_HTML_2_ALT,
+            ),
+            '3.2' => array(
+                'default' => self::FPI_HTML_3_2,
+                'alternative1' => self::FPI_HTML_3_2_ALT1,
+                'alternative2' => self::FPI_HTML_3_2_ALT2
+            ),
             '4' => array(
                 'strict' => self::FPI_HTML_4_STRICT,
                 'transitional' => self::FPI_HTML_4_TRANSITIONAL,
@@ -179,6 +206,12 @@ class Generator {
             '4.01' => array(
                 '1.1' => self::FPI_HTML_4_01_RDFALITE_1_1,
             )            
+        ),
+        'html+iso15445' => array(
+            '1' => array(
+                'default' => self::FPI_HTML_ISO_15445,
+                'alternative' => self::FPI_HTML_ISO_15445_ALT,
+            )
         )
     );
     
@@ -220,8 +253,8 @@ class Generator {
         ),        
         'xhtml+mobile' => array(
             '1' => 'http://www.wapforum.org/DTD/xhtml-mobile10.dtd',
-            '1.1' => 'http://www.wapforum.org/DTD/xhtml-mobile11.dtd',
-            '1.2' => 'http://www.wapforum.org/DTD/xhtml-mobile12.dtd',
+            '1.1' => 'http://www.openmobilealliance.org/tech/DTD/xhtml-mobile11.dtd',
+            '1.2' => 'http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd',
         ),         
         'xhtml+rdfa' => array(
             '1' => 'http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd',
@@ -701,6 +734,18 @@ class Generator {
         
         if ($this->isHtml && in_array($this->version, array('4', '4.01')) && is_null($this->moduleVersion)) {
             return 'strict';
+        }
+        
+        if ($this->isHtml && $this->version == 2) {
+            return 'default';
+        }
+        
+        if ($this->isHtml && $this->version == '3.2') {
+            return 'default';
+        }
+        
+        if ($this->module == 'iso15445') {
+            return 'default';
         }
         
         return null;

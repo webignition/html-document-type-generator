@@ -16,10 +16,17 @@ class HtmlTest extends BaseTest {
     
     public function testHtml2Default() {
         $this->assertEquals(
-                '<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">',
+                '<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">',
                 $this->generator->version(2)->generate()
          );
     }            
+    
+    public function testHtml2Alternative() {
+        $this->assertEquals(
+                '<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">',
+                $this->generator->version(2)->variant('alternative')->generate()
+         );
+    }       
 
     public function testHtml32Default() {
         $this->assertEquals(
@@ -27,6 +34,20 @@ class HtmlTest extends BaseTest {
                 $this->generator->version('3.2')->generate()
         );
     }        
+    
+    public function testHtml32Alternative1() {
+        $this->assertEquals(
+                '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2//EN">',
+                $this->generator->version('3.2')->variant('alternative1')->generate()
+        );
+    } 
+    
+    public function testHtml32Alternative2() {
+        $this->assertEquals(
+                '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Draft//EN">',
+                $this->generator->version('3.2')->variant('alternative2')->generate()
+        );
+    }     
     
     public function testHtml40Default() {
         $this->assertEquals(

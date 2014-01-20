@@ -9,8 +9,11 @@ class GetFpisTest extends BaseTest {
     public function testGetFpis() {
         $generator = new Generator();        
         $this->assertEquals(array(
+            '-//IETF//DTD HTML//EN',
             '-//IETF//DTD HTML 2.0//EN',
             '-//W3C//DTD HTML 3.2 Final//EN',
+            '-//W3C//DTD HTML 3.2//EN',
+            '-//W3C//DTD HTML 3.2 Draft//EN',
             '-//W3C//DTD HTML 4.0//EN',
             '-//W3C//DTD HTML 4.0 Transitional//EN',
             '-//W3C//DTD HTML 4.0 Frameset//EN',
@@ -21,6 +24,8 @@ class GetFpisTest extends BaseTest {
             '-//W3C//DTD HTML 4.01+RDFa 1.0//EN',
             '-//W3C//DTD HTML 4.01+RDFa 1.1//EN',
             '-//W3C//DTD HTML 4.01+RDFa Lite 1.1//EN',
+            'ISO/IEC 15445:2000//DTD HTML//EN',
+            'ISO/IEC 15445:2000//DTD HyperText Markup Language//EN',            
             '-//W3C//DTD XHTML 1.0 Strict//EN',
             '-//W3C//DTD XHTML 1.0 Transitional//EN',
             '-//W3C//DTD XHTML 1.0 Frameset//EN',
