@@ -260,11 +260,11 @@ class Generator {
     
     
     /**
-     * Name of XHTML module such as 'basic', 'print', 'mobile', 'rdfa' or 'aria'
+     * Name of (X)HTML module such as 'basic', 'print', 'mobile', 'rdfa' or 'aria'
      * 
      * @var string
      */
-    private $xhtmlModule = null;
+    private $module = null;
     
     
     
@@ -331,7 +331,7 @@ class Generator {
                 $parentCategory = $category;
                 
                 $key = $parentCategory.'-'.str_replace('.', '', $instance['version']);
-                $xhtmlModule = null;
+                $module = null;
                 
                 $generator = new Generator();
                 
@@ -347,16 +347,16 @@ class Generator {
                     $generator->lowercasePrefix();
                 }
                 
-                if ($this->isXhtmlModuleCategory($parentCategory)) {
-                    $xhtmlModule = str_replace('xhtml+', '', $parentCategory);
+                if ($this->isModuleCategory($parentCategory)) {
+                    $module = str_replace('xhtml+', '', $parentCategory);
                     $parentCategory = 'xhtml';
                 }
                 
                 $generator->$parentCategory();
                 $generator->version($instance['version']);
                 
-                if (!is_null($xhtmlModule)) {
-                    $generator->xhtmlModule($xhtmlModule);
+                if (!is_null($module)) {
+                    $generator->module($module);
                 }
                 
                 if (isset($instance['variant'])) {
@@ -377,7 +377,7 @@ class Generator {
      * @param string $category
      * @return boolean
      */
-    private function isXhtmlModuleCategory($category) {
+    private function isModuleCategory($category) {
         return preg_match('/^xhtml\+/', $category) === 1;
     }
     
@@ -476,7 +476,7 @@ class Generator {
         }
         
         if ($this->isXhtml) {
-            return (is_null($this->xhtmlModule)) ? 'xhtml' : 'xhtml+' . $this->xhtmlModule;
+            return (is_null($this->module)) ? 'xhtml' : 'xhtml+' . $this->module;
         }
         
         return null;
@@ -635,8 +635,8 @@ class Generator {
      * @param string $module
      * @return \webignition\HtmlDocumentType\Generator
      */
-    public function xhtmlModule($module) {
-        $this->xhtmlModule = $module;
+    public function module($module) {
+        $this->module = $module;
         return $this;
     }
     

@@ -11,7 +11,7 @@ class XhtmlAriaTest extends BaseTest {
     
     public function setUp() {
         $this->generator = new Generator();
-        $this->generator->xhtml()->xhtmlModule('aria');
+        $this->generator->xhtml()->module('aria');
     }
     
     public function testXhtmlAria1Default() {

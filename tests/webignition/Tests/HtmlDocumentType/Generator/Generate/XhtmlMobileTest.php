@@ -11,7 +11,7 @@ class XhtmlMobileTest extends BaseTest {
     
     public function setUp() {
         $this->generator = new Generator();
-        $this->generator->xhtml()->xhtmlModule('mobile');        
+        $this->generator->xhtml()->module('mobile');        
     }
     
     public function testXhtmlMobile1() {

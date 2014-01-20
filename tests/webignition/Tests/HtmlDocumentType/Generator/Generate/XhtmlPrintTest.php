@@ -11,7 +11,7 @@ class XhtmlPrintTest extends BaseTest {
     
     public function setUp() {
         $this->generator = new Generator();
-        $this->generator->xhtml()->xhtmlModule('print');        
+        $this->generator->xhtml()->module('print');        
     }
     
     public function testXhtml1Print() {
