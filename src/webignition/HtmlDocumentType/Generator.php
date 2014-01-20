@@ -16,99 +16,40 @@ namespace webignition\HtmlDocumentType;
 class Generator {
     
     const DOCTYPE_PREFIX = '<!DOCTYPE html';
-    const DOCTYPE_SUFFIX = '>';
-    
-    const FPI_HTML_2 = '-//IETF//DTD HTML//EN';
-    const FPI_HTML_2_ALT = '-//IETF//DTD HTML 2.0//EN';
-    const FPI_HTML_3_2 = '-//W3C//DTD HTML 3.2 Final//EN';
-    const FPI_HTML_3_2_ALT1 = '-//W3C//DTD HTML 3.2//EN';
-    const FPI_HTML_3_2_ALT2 = '-//W3C//DTD HTML 3.2 Draft//EN';
-    const FPI_HTML_4_STRICT = '-//W3C//DTD HTML 4.0//EN';
-    const FPI_HTML_4_TRANSITIONAL = '-//W3C//DTD HTML 4.0 Transitional//EN';
-    const FPI_HTML_4_FRAMESET = '-//W3C//DTD HTML 4.0 Frameset//EN';
-    const FPI_HTML_4_01_STRICT = '-//W3C//DTD HTML 4.01//EN';
-    const FPI_HTML_4_01_TRANSITIONAL = '-//W3C//DTD HTML 4.01 Transitional//EN';
-    const FPI_HTML_4_01_FRAMESET = '-//W3C//DTD HTML 4.01 Frameset//EN';    
-    const FPI_HTML_4_01_ARIA = '-//W3C//DTD HTML+ARIA 1.0//EN';
-    const FPI_HTML_4_01_RDFA_1 = '-//W3C//DTD HTML 4.01+RDFa 1.0//EN';
-    const FPI_HTML_4_01_RDFA_1_1 = '-//W3C//DTD HTML 4.01+RDFa 1.1//EN';
-    const FPI_HTML_4_01_RDFALITE_1_1 = '-//W3C//DTD HTML 4.01+RDFa Lite 1.1//EN';
-    const FPI_HTML_ISO_15445 = 'ISO/IEC 15445:2000//DTD HTML//EN';
-    const FPI_HTML_ISO_15445_ALT = 'ISO/IEC 15445:2000//DTD HyperText Markup Language//EN';
-    const FPI_XHTML_1_STRICT = '-//W3C//DTD XHTML 1.0 Strict//EN';
-    const FPI_XHTML_1_TRANSITIONAL = '-//W3C//DTD XHTML 1.0 Transitional//EN';
-    const FPI_XHTML_1_FRAMESET = '-//W3C//DTD XHTML 1.0 Frameset//EN';
-    const FPI_XHTML_1_BASIC = '-//W3C//DTD XHTML Basic 1.0//EN';
-    const FPI_XHTML_1_PRINT = '-//W3C//DTD XHTML-Print 1.0//EN';
-    const FPI_XHTML_MOBILE_1 = '-//WAPFORUM//DTD XHTML Mobile 1.0//EN';
-    const FPI_XHTML_MOBILE_1_1 = '-//WAPFORUM//DTD XHTML Mobile 1.1//EN';
-    const FPI_XHTML_MOBILE_1_2 = '-//WAPFORUM//DTD XHTML Mobile 1.2//EN';    
-    const FPI_XHTML_1_1 = '-//W3C//DTD XHTML 1.1//EN';
-    const FPI_XHTML_1_1_BASIC = '-//W3C//DTD XHTML Basic 1.1//EN';
-    const FPI_XHTML_RDFA_1 = '-//W3C//DTD XHTML+RDFa 1.0//EN';
-    const FPI_XHTML_RDFA_1_1 = '-//W3C//DTD XHTML+RDFa 1.1//EN';
-    const FPI_XHTML_ARIA_1 = '-//W3C//DTD XHTML+ARIA 1.0//EN';
-    
-    const URI_HTML_4_STRICT = 'http://www.w3.org/TR/html4/strict.dtd';
-    const URI_HTML_4_TRANSITIONAL = 'http://www.w3.org/TR/html4/loose.dtd';
-    const URI_HTML_4_FRAMESET = 'http://www.w3.org/TR/html4/frameset.dtd';    
-    const URI_HTML_4_01_STRICT = 'http://www.w3.org/TR/html4/strict.dtd';
-    const URI_HTML_4_01_TRANSITIONAL = 'http://www.w3.org/TR/html4/loose.dtd';
-    const URI_HTML_4_01_FRAMESET = 'http://www.w3.org/TR/html4/frameset.dtd';
-    const URI_HTML_5_LEGACY_COMPAT = 'about:legacy-compat';    
-    const URI_XHTML_1_STRICT = 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd';
-    const URI_XHTML_1_TRANSITIONAL = 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd';
-    const URI_XHTML_1_FRAMESET = 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd';
-    const URI_XHTML_1_1 = 'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd';
-    const URI_XHTML_BASIC_1 = 'http://www.w3.org/TR/xhtml-basic/xhtml-basic10.dtd';
-    const URI_XHTML_BASIC_1_1 = 'http://www.w3.org/TR/xhtml-basic/xhtml-basic11.dtd';
-    const URI_XHTML_PRINT_1 = 'http://www.w3.org/TR/xhtml-print/xhtml-print10.dtd';
-    const URI_XHTML_MOBILE_1 = 'http://www.wapforum.org/DTD/xhtml-mobile10.dtd';
-    const URI_XHTML_MOBILE_1_1 = 'http://www.openmobilealliance.org/tech/DTD/xhtml-mobile11.dtd';
-    const URI_XHTML_MOBILE_1_2 = 'http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd';
-    const URI_XHTML_RDFA_1 = 'http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd';
-    const URI_XHTML_RDFA_1_1 = 'http://www.w3.org/MarkUp/DTD/xhtml-rdfa-2.dtd';
-    const URI_XHTML_ARIA_1 = 'http://www.w3.org/WAI/ARIA/schemata/xhtml-aria-1.dtd';
-    const URI_XHTML_ARIA_1_ALTERNATIVE = 'http://www.w3.org/MarkUp/DTD/xhtml-aria-1.dtd';
-    const URI_HTML_ARIA_4_01_1 = 'http://www.w3.org/WAI/ARIA/schemata/html4-aria-1.dtd';
-    const URI_HTML_RDFA_4_01_1 = 'http://www.w3.org/MarkUp/DTD/html401-rdfa-1.dtd';
-    const URI_HTML_RDFA_4_01_1_1 = 'http://www.w3.org/MarkUp/DTD/html401-rdfa11-1.dtd';
-    const URI_HTML_RDFALITE_4_01_1_1 = 'http://www.w3.org/MarkUp/DTD/html401-rdfalite11-1.dtd';
+    const DOCTYPE_SUFFIX = '>';       
      
     private $fpis = array(
-        self::FPI_HTML_2,
-        self::FPI_HTML_2_ALT,
-        self::FPI_HTML_3_2,
-        self::FPI_HTML_3_2_ALT1,
-        self::FPI_HTML_3_2_ALT2,
-        self::FPI_HTML_4_STRICT,
-        self::FPI_HTML_4_TRANSITIONAL,
-        self::FPI_HTML_4_FRAMESET,
-        self::FPI_HTML_4_01_STRICT,
-        self::FPI_HTML_4_01_TRANSITIONAL,
-        self::FPI_HTML_4_01_FRAMESET,
-        self::FPI_HTML_4_01_ARIA,
-        self::FPI_HTML_4_01_RDFA_1,
-        self::FPI_HTML_4_01_RDFA_1_1,
-        self::FPI_HTML_4_01_RDFALITE_1_1,
-        self::FPI_HTML_ISO_15445,
-        self::FPI_HTML_ISO_15445_ALT,
-        self::FPI_XHTML_1_STRICT,
-        self::FPI_XHTML_1_TRANSITIONAL,
-        self::FPI_XHTML_1_FRAMESET,
-        self::FPI_XHTML_1_BASIC,        
-        self::FPI_XHTML_1_PRINT,
-        self::FPI_XHTML_MOBILE_1,
-        self::FPI_XHTML_MOBILE_1_1,
-        self::FPI_XHTML_MOBILE_1_2,        
-        self::FPI_XHTML_1_1,
-        self::FPI_XHTML_1_1_BASIC,
-        self::FPI_XHTML_RDFA_1,
-        self::FPI_XHTML_RDFA_1_1,
-        self::FPI_XHTML_ARIA_1
+        FpiList::FPI_HTML_2,
+        FpiList::FPI_HTML_2_ALT,
+        FpiList::FPI_HTML_3_2,
+        FpiList::FPI_HTML_3_2_ALT1,
+        FpiList::FPI_HTML_3_2_ALT2,
+        FpiList::FPI_HTML_4_STRICT,
+        FpiList::FPI_HTML_4_TRANSITIONAL,
+        FpiList::FPI_HTML_4_FRAMESET,
+        FpiList::FPI_HTML_4_01_STRICT,
+        FpiList::FPI_HTML_4_01_TRANSITIONAL,
+        FpiList::FPI_HTML_4_01_FRAMESET,
+        FpiList::FPI_HTML_4_01_ARIA,
+        FpiList::FPI_HTML_4_01_RDFA_1,
+        FpiList::FPI_HTML_4_01_RDFA_1_1,
+        FpiList::FPI_HTML_4_01_RDFALITE_1_1,
+        FpiList::FPI_HTML_ISO_15445,
+        FpiList::FPI_HTML_ISO_15445_ALT,
+        FpiList::FPI_XHTML_1_STRICT,
+        FpiList::FPI_XHTML_1_TRANSITIONAL,
+        FpiList::FPI_XHTML_1_FRAMESET,
+        FpiList::FPI_XHTML_1_BASIC,        
+        FpiList::FPI_XHTML_1_PRINT,
+        FpiList::FPI_XHTML_MOBILE_1,
+        FpiList::FPI_XHTML_MOBILE_1_1,
+        FpiList::FPI_XHTML_MOBILE_1_2,        
+        FpiList::FPI_XHTML_1_1,
+        FpiList::FPI_XHTML_1_1_BASIC,
+        FpiList::FPI_XHTML_RDFA_1,
+        FpiList::FPI_XHTML_RDFA_1_1,
+        FpiList::FPI_XHTML_ARIA_1
     );
-    
-    
     
     private $knownMatrix = array(
         'html' => array(
@@ -172,75 +113,75 @@ class Generator {
     private $versionAndVariantToFpiMap = array(
         'html' => array(
             '2' => array(
-                'default' => self::FPI_HTML_2,
-                'alternative' => self::FPI_HTML_2_ALT,
+                'default' => FpiList::FPI_HTML_2,
+                'alternative' => FpiList::FPI_HTML_2_ALT,
             ),
             '3.2' => array(
-                'default' => self::FPI_HTML_3_2,
-                'alternative1' => self::FPI_HTML_3_2_ALT1,
-                'alternative2' => self::FPI_HTML_3_2_ALT2
+                'default' => FpiList::FPI_HTML_3_2,
+                'alternative1' => FpiList::FPI_HTML_3_2_ALT1,
+                'alternative2' => FpiList::FPI_HTML_3_2_ALT2
             ),
             '4' => array(
-                'strict' => self::FPI_HTML_4_STRICT,
-                'transitional' => self::FPI_HTML_4_TRANSITIONAL,
-                'frameset' => self::FPI_HTML_4_FRAMESET
+                'strict' => FpiList::FPI_HTML_4_STRICT,
+                'transitional' => FpiList::FPI_HTML_4_TRANSITIONAL,
+                'frameset' => FpiList::FPI_HTML_4_FRAMESET
             ),
             '4.0' => array(
-                'strict' => self::FPI_HTML_4_STRICT,
-                'transitional' => self::FPI_HTML_4_TRANSITIONAL,
-                'frameset' => self::FPI_HTML_4_FRAMESET
+                'strict' => FpiList::FPI_HTML_4_STRICT,
+                'transitional' => FpiList::FPI_HTML_4_TRANSITIONAL,
+                'frameset' => FpiList::FPI_HTML_4_FRAMESET
             ),            
             '4.01' => array(
-                'strict' => self::FPI_HTML_4_01_STRICT,
-                'transitional' => self::FPI_HTML_4_01_TRANSITIONAL,
-                'frameset' => self::FPI_HTML_4_01_FRAMESET
+                'strict' => FpiList::FPI_HTML_4_01_STRICT,
+                'transitional' => FpiList::FPI_HTML_4_01_TRANSITIONAL,
+                'frameset' => FpiList::FPI_HTML_4_01_FRAMESET
             ),           
         ),
         'xhtml' => array(
             '1' => array(
-                'strict' => self::FPI_XHTML_1_STRICT,
-                'transitional' => self::FPI_XHTML_1_TRANSITIONAL,
-                'frameset' => self::FPI_XHTML_1_FRAMESET
+                'strict' => FpiList::FPI_XHTML_1_STRICT,
+                'transitional' => FpiList::FPI_XHTML_1_TRANSITIONAL,
+                'frameset' => FpiList::FPI_XHTML_1_FRAMESET
             ),
-            '1.1' => self::FPI_XHTML_1_1
+            '1.1' => FpiList::FPI_XHTML_1_1
         ),
         'xhtml+basic' => array(
-            '1' => self::FPI_XHTML_1_BASIC,
-            '1.1' => self::FPI_XHTML_1_1_BASIC
+            '1' => FpiList::FPI_XHTML_1_BASIC,
+            '1.1' => FpiList::FPI_XHTML_1_1_BASIC
         ),        
         'xhtml+print' => array(
-            '1' => self::FPI_XHTML_1_PRINT
+            '1' => FpiList::FPI_XHTML_1_PRINT
         ),         
         'xhtml+mobile' => array(
-            '1' => self::FPI_XHTML_MOBILE_1,
-            '1.1' => self::FPI_XHTML_MOBILE_1_1,
-            '1.2' => self::FPI_XHTML_MOBILE_1_2
+            '1' => FpiList::FPI_XHTML_MOBILE_1,
+            '1.1' => FpiList::FPI_XHTML_MOBILE_1_1,
+            '1.2' => FpiList::FPI_XHTML_MOBILE_1_2
         ),         
         'xhtml+rdfa' => array(
-            '1' => self::FPI_XHTML_RDFA_1,
-            '1.1' => self::FPI_XHTML_RDFA_1_1
+            '1' => FpiList::FPI_XHTML_RDFA_1,
+            '1.1' => FpiList::FPI_XHTML_RDFA_1_1
         ),
         'xhtml+aria' => array(
-            '1' => self::FPI_XHTML_ARIA_1,
+            '1' => FpiList::FPI_XHTML_ARIA_1,
         ),
         'html+aria' => array(
-            '4.01' => self::FPI_HTML_4_01_ARIA
+            '4.01' => FpiList::FPI_HTML_4_01_ARIA
         ),
         'html+rdfa' => array(
             '4.01' => array(
-                '1' => self::FPI_HTML_4_01_RDFA_1,
-                '1.1' => self::FPI_HTML_4_01_RDFA_1_1,
+                '1' => FpiList::FPI_HTML_4_01_RDFA_1,
+                '1.1' => FpiList::FPI_HTML_4_01_RDFA_1_1,
             )
         ),
         'html+rdfalite' => array(
             '4.01' => array(
-                '1.1' => self::FPI_HTML_4_01_RDFALITE_1_1,
+                '1.1' => FpiList::FPI_HTML_4_01_RDFALITE_1_1,
             )            
         ),
         'html+iso15445' => array(
             '1' => array(
-                'default' => self::FPI_HTML_ISO_15445,
-                'alternative' => self::FPI_HTML_ISO_15445_ALT,
+                'default' => FpiList::FPI_HTML_ISO_15445,
+                'alternative' => FpiList::FPI_HTML_ISO_15445_ALT,
             )
         )
     );
@@ -248,66 +189,66 @@ class Generator {
     private $versionAndVariantToUriMap = array(
         'html' => array(
             '4' => array(
-                'strict' => self::URI_HTML_4_STRICT,
-                'transitional' => self::URI_HTML_4_TRANSITIONAL,
-                'frameset' => self::URI_HTML_4_FRAMESET
+                'strict' => UriList::URI_HTML_4_STRICT,
+                'transitional' => UriList::URI_HTML_4_TRANSITIONAL,
+                'frameset' => UriList::URI_HTML_4_FRAMESET
             ), 
             '4.0' => array(
-                'strict' => self::URI_HTML_4_STRICT,
-                'transitional' => self::URI_HTML_4_TRANSITIONAL,
-                'frameset' => self::URI_HTML_4_FRAMESET
+                'strict' => UriList::URI_HTML_4_STRICT,
+                'transitional' => UriList::URI_HTML_4_TRANSITIONAL,
+                'frameset' => UriList::URI_HTML_4_FRAMESET
             ), 
             '4.01' => array(
-                'strict' => self::URI_HTML_4_01_STRICT,
-                'transitional' => self::URI_HTML_4_01_TRANSITIONAL,
-                'frameset' => self::URI_HTML_4_01_FRAMESET
+                'strict' => UriList::URI_HTML_4_01_STRICT,
+                'transitional' => UriList::URI_HTML_4_01_TRANSITIONAL,
+                'frameset' => UriList::URI_HTML_4_01_FRAMESET
             ),
             '5' => array(
-                'legacy-compat' => self::URI_HTML_5_LEGACY_COMPAT
+                'legacy-compat' => UriList::URI_HTML_5_LEGACY_COMPAT
             )
         ),
         'xhtml' => array(
             '1' => array(
-                'strict' => self::URI_XHTML_1_STRICT,
-                'transitional' => self::URI_XHTML_1_TRANSITIONAL,
-                'frameset' => self::URI_XHTML_1_FRAMESET
+                'strict' => UriList::URI_XHTML_1_STRICT,
+                'transitional' => UriList::URI_XHTML_1_TRANSITIONAL,
+                'frameset' => UriList::URI_XHTML_1_FRAMESET
             ),
-            '1.1' => self::URI_XHTML_1_1,
+            '1.1' => UriList::URI_XHTML_1_1,
         ),
         'xhtml+basic' => array(
-            '1' => self::URI_XHTML_BASIC_1,
-            '1.1' => self::URI_XHTML_BASIC_1_1
+            '1' => UriList::URI_XHTML_BASIC_1,
+            '1.1' => UriList::URI_XHTML_BASIC_1_1
         ),          
         'xhtml+print' => array(
-            '1' => self::URI_XHTML_PRINT_1
+            '1' => UriList::URI_XHTML_PRINT_1
         ),        
         'xhtml+mobile' => array(
-            '1' => self::URI_XHTML_MOBILE_1,
-            '1.1' => self::URI_XHTML_MOBILE_1_1,
-            '1.2' => self::URI_XHTML_MOBILE_1_2
+            '1' => UriList::URI_XHTML_MOBILE_1,
+            '1.1' => UriList::URI_XHTML_MOBILE_1_1,
+            '1.2' => UriList::URI_XHTML_MOBILE_1_2
         ),         
         'xhtml+rdfa' => array(
-            '1' => self::URI_XHTML_RDFA_1,
-            '1.1' => self::URI_XHTML_RDFA_1_1
+            '1' => UriList::URI_XHTML_RDFA_1,
+            '1.1' => UriList::URI_XHTML_RDFA_1_1
         ),
         'xhtml+aria' => array(
             '1' => array(
-                'default' => self::URI_XHTML_ARIA_1,
-                'alternative' => self::URI_XHTML_ARIA_1_ALTERNATIVE
+                'default' => UriList::URI_XHTML_ARIA_1,
+                'alternative' => UriList::URI_XHTML_ARIA_1_ALTERNATIVE
             ),            
         ),
         'html+aria' => array(
-            '4.01' => self::URI_HTML_ARIA_4_01_1            
+            '4.01' => UriList::URI_HTML_ARIA_4_01_1            
         ),
         'html+rdfa' => array(
             '4.01' => array(
-                '1' => self::URI_HTML_RDFA_4_01_1,
-                '1.1' => self::URI_HTML_RDFA_4_01_1_1
+                '1' => UriList::URI_HTML_RDFA_4_01_1,
+                '1.1' => UriList::URI_HTML_RDFA_4_01_1_1
             )
         ),
         'html+rdfalite' => array(
             '4.01' => array(
-                '1.1' => self::URI_HTML_RDFALITE_4_01_1_1
+                '1.1' => UriList::URI_HTML_RDFALITE_4_01_1_1
             )            
         )        
     );
@@ -493,7 +434,7 @@ class Generator {
         }
         
         return $allDoctypes;
-    }
+    }   
     
     
     /**

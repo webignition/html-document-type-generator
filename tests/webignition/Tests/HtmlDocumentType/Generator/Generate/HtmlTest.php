@@ -51,28 +51,28 @@ class HtmlTest extends BaseTest {
     
     public function testHtml40Default() {
         $this->assertEquals(
-                '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/html4/strict.dtd">',
+                '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/1998/REC-html40-19980424/strict.dtd">',
                 $this->generator->version('4')->generate()
         );
     }     
     
     public function testHtml40Strict() {
         $this->assertEquals(
-                '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/html4/strict.dtd">',
+                '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/1998/REC-html40-19980424/strict.dtd">',
                 $this->generator->version('4')->variant('strict')->generate()
         );
     } 
     
     public function testHtml40Transitional() {
         $this->assertEquals(
-                '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">',
+                '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/1998/REC-html40-19980424/loose.dtd">',
                 $this->generator->version('4')->variant('transitional')->generate()
         );
     } 
     
     public function testHtml40Frameset() {
         $this->assertEquals(
-                '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">',
+                '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Frameset//EN" "http://www.w3.org/TR/1998/REC-html40-19980424/frameset.dtd">',
                 $this->generator->version('4')->variant('frameset')->generate()
         );
     }  
