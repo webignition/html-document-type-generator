@@ -122,6 +122,7 @@ class Generator {
         ),
         'xhtml+aria' => array(
             array('version' => '1'),           
+            array('version' => '1', 'variant' => 'alternative'), 
         ),
         'html+aria' => array(
             array('version' => '4.01'),
@@ -262,7 +263,10 @@ class Generator {
             '1.1' => 'http://www.w3.org/MarkUp/DTD/xhtml-rdfa-2.dtd'
         ),
         'xhtml+aria' => array(
-            '1' => 'http://www.w3.org/MarkUp/DTD/xhtml-aria-1.dtd',            
+            '1' => array(
+                'default' => 'http://www.w3.org/WAI/ARIA/schemata/xhtml-aria-1.dtd',
+                'alternative' => 'http://www.w3.org/MarkUp/DTD/xhtml-aria-1.dtd'
+            ),            
         ),
         'html+aria' => array(
             '4.01' => 'http://www.w3.org/WAI/ARIA/schemata/html4-aria-1.dtd',            
@@ -582,7 +586,7 @@ class Generator {
             } else {
                 $versionSubset = $versionSubset[$this->moduleVersion];
             }
-        }        
+        }   
         
         if (is_string($versionSubset)) {
             return $versionSubset;
@@ -728,6 +732,10 @@ class Generator {
         if (isset($this->variant)) {
             return $this->variant;
         }
+        
+        if ($this->isXhtml && $this->module == 'aria') {
+            return 'default';
+        }        
         
         if ($this->isXhtml) {
             return 'strict';
