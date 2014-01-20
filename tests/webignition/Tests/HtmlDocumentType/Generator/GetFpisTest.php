@@ -17,6 +17,7 @@ class GetFpisTest extends BaseTest {
             '-//W3C//DTD HTML 4.01//EN',
             '-//W3C//DTD HTML 4.01 Transitional//EN',
             '-//W3C//DTD HTML 4.01 Frameset//EN',
+            '-//W3C//DTD HTML+ARIA 1.0//EN',
             '-//W3C//DTD XHTML 1.0 Strict//EN',
             '-//W3C//DTD XHTML 1.0 Transitional//EN',
             '-//W3C//DTD XHTML 1.0 Frameset//EN',

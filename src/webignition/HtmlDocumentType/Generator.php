@@ -23,6 +23,7 @@ class Generator {
     const FPI_HTML_4_01_STRICT = '-//W3C//DTD HTML 4.01//EN';
     const FPI_HTML_4_01_TRANSITIONAL = '-//W3C//DTD HTML 4.01 Transitional//EN';
     const FPI_HTML_4_01_FRAMESET = '-//W3C//DTD HTML 4.01 Frameset//EN';    
+    const FPI_HTML_4_01_ARIA = '-//W3C//DTD HTML+ARIA 1.0//EN';
     const FPI_XHTML_1_STRICT = '-//W3C//DTD XHTML 1.0 Strict//EN';
     const FPI_XHTML_1_TRANSITIONAL = '-//W3C//DTD XHTML 1.0 Transitional//EN';
     const FPI_XHTML_1_FRAMESET = '-//W3C//DTD XHTML 1.0 Frameset//EN';
@@ -46,6 +47,7 @@ class Generator {
         self::FPI_HTML_4_01_STRICT,
         self::FPI_HTML_4_01_TRANSITIONAL,
         self::FPI_HTML_4_01_FRAMESET,
+        self::FPI_HTML_4_01_ARIA,
         self::FPI_XHTML_1_STRICT,
         self::FPI_XHTML_1_TRANSITIONAL,
         self::FPI_XHTML_1_FRAMESET,
@@ -97,7 +99,10 @@ class Generator {
         ),
         'xhtml+aria' => array(
             array('version' => '1'),           
-        )
+        ),
+        'html+aria' => array(
+            array('version' => '4.01'),           
+        ),        
     ); 
          
     
@@ -147,7 +152,10 @@ class Generator {
         ),
         'xhtml+aria' => array(
             '1' => self::FPI_XHTML_ARIA_1,
-        )        
+        ),
+        'html+aria' => array(
+            '4.01' => self::FPI_HTML_4_01_ARIA
+        )          
     );
     
     private $versionAndVariantToUriMap = array(
@@ -197,7 +205,10 @@ class Generator {
         ),
         'xhtml+aria' => array(
             '1' => 'http://www.w3.org/MarkUp/DTD/xhtml-aria-1.dtd',            
-        )        
+        ),
+        'html+aria' => array(
+            '4.01' => 'http://www.w3.org/WAI/ARIA/schemata/html4-aria-1.dtd',            
+        )          
     );
     
     /**
@@ -348,8 +359,8 @@ class Generator {
                 }
                 
                 if ($this->isModuleCategory($parentCategory)) {
-                    $module = str_replace('xhtml+', '', $parentCategory);
-                    $parentCategory = 'xhtml';
+                    $module = $this->getModuleFromCategory($parentCategory);
+                    $parentCategory = $this->getParentCategoryFromModuleCategory($parentCategory);
                 }
                 
                 $generator->$parentCategory();
@@ -378,7 +389,32 @@ class Generator {
      * @return boolean
      */
     private function isModuleCategory($category) {
-        return preg_match('/^xhtml\+/', $category) === 1;
+        return preg_match('/^(xhtml)|(html)\+/', $category) === 1;
+    }
+    
+    
+    /**
+     * 
+     * @param string $category
+     * @return string
+     */
+    private function getModuleFromCategory($category) {
+        return str_replace(array('xhtml+', 'html+'), '', $category);
+    }
+    
+    
+    /**
+     * 
+     * @param string $category
+     * @return string
+     */
+    private function getParentCategoryFromModuleCategory($category) {
+        if (!substr_count($category, '+')) {
+            return $category;
+        }
+        
+        $categoryParts = explode('+', $category);
+        return $categoryParts[0];
     }
     
     
@@ -471,15 +507,15 @@ class Generator {
      * @return string|null
      */
     private function getMapRootSubsetKey() {
-        if ($this->isHtml) {
-            return 'html';
+        $keyParts = array(
+            ($this->isHtml) ? 'html' : 'xhtml'
+        );
+        
+        if (!is_null($this->module)) {
+            $keyParts[] = $this->module;
         }
         
-        if ($this->isXhtml) {
-            return (is_null($this->module)) ? 'xhtml' : 'xhtml+' . $this->module;
-        }
-        
-        return null;
+        return implode('+', $keyParts);
     }
     
     
