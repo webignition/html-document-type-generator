@@ -28,6 +28,9 @@ class Generator {
     const FPI_XHTML_1_FRAMESET = '-//W3C//DTD XHTML 1.0 Frameset//EN';
     const FPI_XHTML_1_BASIC = '-//W3C//DTD XHTML Basic 1.0//EN';
     const FPI_XHTML_1_PRINT = '-//W3C//DTD XHTML-Print 1.0//EN';
+    const FPI_XHTML_MOBILE_1 = '-//WAPFORUM//DTD XHTML Mobile 1.0//EN';
+    const FPI_XHTML_MOBILE_1_1 = '-//WAPFORUM//DTD XHTML Mobile 1.1//EN';
+    const FPI_XHTML_MOBILE_1_2 = '-//WAPFORUM//DTD XHTML Mobile 1.2//EN';    
     const FPI_XHTML_1_1 = '-//W3C//DTD XHTML 1.1//EN';
     const FPI_XHTML_1_1_BASIC = '-//W3C//DTD XHTML Basic 1.1//EN';
     const FPI_XHTML_RDFA_1 = '-//W3C//DTD XHTML+RDFa 1.0//EN';
@@ -46,8 +49,11 @@ class Generator {
         self::FPI_XHTML_1_STRICT,
         self::FPI_XHTML_1_TRANSITIONAL,
         self::FPI_XHTML_1_FRAMESET,
-        self::FPI_XHTML_1_BASIC,
+        self::FPI_XHTML_1_BASIC,        
         self::FPI_XHTML_1_PRINT,
+        self::FPI_XHTML_MOBILE_1,
+        self::FPI_XHTML_MOBILE_1_1,
+        self::FPI_XHTML_MOBILE_1_2,        
         self::FPI_XHTML_1_1,
         self::FPI_XHTML_1_1_BASIC,
         self::FPI_XHTML_RDFA_1,
@@ -80,13 +86,18 @@ class Generator {
         'xhtml+print' => array(
             array('version' => '1'),          
         ),              
+        'xhtml+mobile' => array(
+            array('version' => '1'),
+            array('version' => '1.1'),
+            array('version' => '1.2'),
+        ),        
         'xhtml+rdfa' => array(
             array('version' => '1'),
             array('version' => '1.1'),            
         ),
         'xhtml+aria' => array(
             array('version' => '1'),           
-        )        
+        )
     ); 
          
     
@@ -124,6 +135,11 @@ class Generator {
         ),        
         'xhtml+print' => array(
             '1' => self::FPI_XHTML_1_PRINT
+        ),         
+        'xhtml+mobile' => array(
+            '1' => self::FPI_XHTML_MOBILE_1,
+            '1.1' => self::FPI_XHTML_MOBILE_1_1,
+            '1.2' => self::FPI_XHTML_MOBILE_1_2
         ),         
         'xhtml+rdfa' => array(
             '1' => self::FPI_XHTML_RDFA_1,
@@ -170,6 +186,11 @@ class Generator {
         'xhtml+print' => array(
             '1' => 'http://www.w3.org/TR/xhtml-print/xhtml-print10.dtd',
         ),        
+        'xhtml+mobile' => array(
+            '1' => 'http://www.wapforum.org/DTD/xhtml-mobile10.dtd',
+            '1.1' => 'http://www.wapforum.org/DTD/xhtml-mobile11.dtd',
+            '1.2' => 'http://www.wapforum.org/DTD/xhtml-mobile12.dtd',
+        ),         
         'xhtml+rdfa' => array(
             '1' => 'http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd',
             '1.1' => 'http://www.w3.org/MarkUp/DTD/xhtml-rdfa-2.dtd'
@@ -239,7 +260,7 @@ class Generator {
     
     
     /**
-     * Name of XHTML 1.1 module such as 'basic', 'rdfa' or 'aria'
+     * Name of XHTML module such as 'basic', 'print', 'mobile', 'rdfa' or 'aria'
      * 
      * @var string
      */
