@@ -27,6 +27,7 @@ class Generator {
     const FPI_XHTML_1_TRANSITIONAL = '-//W3C//DTD XHTML 1.0 Transitional//EN';
     const FPI_XHTML_1_FRAMESET = '-//W3C//DTD XHTML 1.0 Frameset//EN';
     const FPI_XHTML_1_BASIC = '-//W3C//DTD XHTML Basic 1.0//EN';
+    const FPI_XHTML_1_PRINT = '-//W3C//DTD XHTML-Print 1.0//EN';
     const FPI_XHTML_1_1 = '-//W3C//DTD XHTML 1.1//EN';
     const FPI_XHTML_1_1_BASIC = '-//W3C//DTD XHTML Basic 1.1//EN';
     const FPI_XHTML_RDFA_1 = '-//W3C//DTD XHTML+RDFa 1.0//EN';
@@ -46,6 +47,7 @@ class Generator {
         self::FPI_XHTML_1_TRANSITIONAL,
         self::FPI_XHTML_1_FRAMESET,
         self::FPI_XHTML_1_BASIC,
+        self::FPI_XHTML_1_PRINT,
         self::FPI_XHTML_1_1,
         self::FPI_XHTML_1_1_BASIC,
         self::FPI_XHTML_RDFA_1,
@@ -75,6 +77,9 @@ class Generator {
             array('version' => '1'),
             array('version' => '1.1'),            
         ),        
+        'xhtml+print' => array(
+            array('version' => '1'),          
+        ),              
         'xhtml+rdfa' => array(
             array('version' => '1'),
             array('version' => '1.1'),            
@@ -117,6 +122,9 @@ class Generator {
             '1' => self::FPI_XHTML_1_BASIC,
             '1.1' => self::FPI_XHTML_1_1_BASIC
         ),        
+        'xhtml+print' => array(
+            '1' => self::FPI_XHTML_1_PRINT
+        ),         
         'xhtml+rdfa' => array(
             '1' => self::FPI_XHTML_RDFA_1,
             '1.1' => self::FPI_XHTML_RDFA_1_1
@@ -158,6 +166,9 @@ class Generator {
         'xhtml+basic' => array(
             '1' => 'http://www.w3.org/TR/xhtml-basic/xhtml-basic10.dtd',
             '1.1' => 'http://www.w3.org/TR/xhtml-basic/xhtml-basic11.dtd'
+        ),          
+        'xhtml+print' => array(
+            '1' => 'http://www.w3.org/TR/xhtml-print/xhtml-print10.dtd',
         ),        
         'xhtml+rdfa' => array(
             '1' => 'http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd',
@@ -182,14 +193,6 @@ class Generator {
      * @var boolean
      */
     private $isXhtml = false;
-//    
-//    
-//    /**
-//     * Whether the DTD string is for an XHTML Basic doctype
-//     * 
-//     * @var boolean
-//     */
-//    private $isXhtmlBasic = false;
     
     
     /**
