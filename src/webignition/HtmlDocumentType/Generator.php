@@ -49,6 +49,32 @@ class Generator {
     const FPI_XHTML_RDFA_1_1 = '-//W3C//DTD XHTML+RDFa 1.1//EN';
     const FPI_XHTML_ARIA_1 = '-//W3C//DTD XHTML+ARIA 1.0//EN';
     
+    const URI_HTML_4_STRICT = 'http://www.w3.org/TR/html4/strict.dtd';
+    const URI_HTML_4_TRANSITIONAL = 'http://www.w3.org/TR/html4/loose.dtd';
+    const URI_HTML_4_FRAMESET = 'http://www.w3.org/TR/html4/frameset.dtd';    
+    const URI_HTML_4_01_STRICT = 'http://www.w3.org/TR/html4/strict.dtd';
+    const URI_HTML_4_01_TRANSITIONAL = 'http://www.w3.org/TR/html4/loose.dtd';
+    const URI_HTML_4_01_FRAMESET = 'http://www.w3.org/TR/html4/frameset.dtd';
+    const URI_HTML_5_LEGACY_COMPAT = 'about:legacy-compat';    
+    const URI_XHTML_1_STRICT = 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd';
+    const URI_XHTML_1_TRANSITIONAL = 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd';
+    const URI_XHTML_1_FRAMESET = 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd';
+    const URI_XHTML_1_1 = 'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd';
+    const URI_XHTML_BASIC_1 = 'http://www.w3.org/TR/xhtml-basic/xhtml-basic10.dtd';
+    const URI_XHTML_BASIC_1_1 = 'http://www.w3.org/TR/xhtml-basic/xhtml-basic11.dtd';
+    const URI_XHTML_PRINT_1 = 'http://www.w3.org/TR/xhtml-print/xhtml-print10.dtd';
+    const URI_XHTML_MOBILE_1 = 'http://www.wapforum.org/DTD/xhtml-mobile10.dtd';
+    const URI_XHTML_MOBILE_1_1 = 'http://www.openmobilealliance.org/tech/DTD/xhtml-mobile11.dtd';
+    const URI_XHTML_MOBILE_1_2 = 'http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd';
+    const URI_XHTML_RDFA_1 = 'http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd';
+    const URI_XHTML_RDFA_1_1 = 'http://www.w3.org/MarkUp/DTD/xhtml-rdfa-2.dtd';
+    const URI_XHTML_ARIA_1 = 'http://www.w3.org/WAI/ARIA/schemata/xhtml-aria-1.dtd';
+    const URI_XHTML_ARIA_1_ALTERNATIVE = 'http://www.w3.org/MarkUp/DTD/xhtml-aria-1.dtd';
+    const URI_HTML_ARIA_4_01_1 = 'http://www.w3.org/WAI/ARIA/schemata/html4-aria-1.dtd';
+    const URI_HTML_RDFA_4_01_1 = 'http://www.w3.org/MarkUp/DTD/html401-rdfa-1.dtd';
+    const URI_HTML_RDFA_4_01_1_1 = 'http://www.w3.org/MarkUp/DTD/html401-rdfa11-1.dtd';
+    const URI_HTML_RDFALITE_4_01_1_1 = 'http://www.w3.org/MarkUp/DTD/html401-rdfalite11-1.dtd';
+     
     private $fpis = array(
         self::FPI_HTML_2,
         self::FPI_HTML_2_ALT,
@@ -81,6 +107,8 @@ class Generator {
         self::FPI_XHTML_RDFA_1_1,
         self::FPI_XHTML_ARIA_1
     );
+    
+    
     
     private $knownMatrix = array(
         'html' => array(
@@ -220,66 +248,66 @@ class Generator {
     private $versionAndVariantToUriMap = array(
         'html' => array(
             '4' => array(
-                'strict' => 'http://www.w3.org/TR/html4/strict.dtd',
-                'transitional' => 'http://www.w3.org/TR/html4/loose.dtd',
-                'frameset' => 'http://www.w3.org/TR/html4/frameset.dtd'
+                'strict' => self::URI_HTML_4_STRICT,
+                'transitional' => self::URI_HTML_4_TRANSITIONAL,
+                'frameset' => self::URI_HTML_4_FRAMESET
             ), 
             '4.0' => array(
-                'strict' => 'http://www.w3.org/TR/html4/strict.dtd',
-                'transitional' => 'http://www.w3.org/TR/html4/loose.dtd',
-                'frameset' => 'http://www.w3.org/TR/html4/frameset.dtd'
+                'strict' => self::URI_HTML_4_STRICT,
+                'transitional' => self::URI_HTML_4_TRANSITIONAL,
+                'frameset' => self::URI_HTML_4_FRAMESET
             ), 
             '4.01' => array(
-                'strict' => 'http://www.w3.org/TR/html4/strict.dtd',
-                'transitional' => 'http://www.w3.org/TR/html4/loose.dtd',
-                'frameset' => 'http://www.w3.org/TR/html4/frameset.dtd'
+                'strict' => self::URI_HTML_4_01_STRICT,
+                'transitional' => self::URI_HTML_4_01_TRANSITIONAL,
+                'frameset' => self::URI_HTML_4_01_FRAMESET
             ),
             '5' => array(
-                'legacy-compat' => 'about:legacy-compat'
+                'legacy-compat' => self::URI_HTML_5_LEGACY_COMPAT
             )
         ),
         'xhtml' => array(
             '1' => array(
-                'strict' => 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd',
-                'transitional' => 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd',
-                'frameset' => 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd'                
+                'strict' => self::URI_XHTML_1_STRICT,
+                'transitional' => self::URI_XHTML_1_TRANSITIONAL,
+                'frameset' => self::URI_XHTML_1_FRAMESET
             ),
-            '1.1' => 'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd',
+            '1.1' => self::URI_XHTML_1_1,
         ),
         'xhtml+basic' => array(
-            '1' => 'http://www.w3.org/TR/xhtml-basic/xhtml-basic10.dtd',
-            '1.1' => 'http://www.w3.org/TR/xhtml-basic/xhtml-basic11.dtd'
+            '1' => self::URI_XHTML_BASIC_1,
+            '1.1' => self::URI_XHTML_BASIC_1_1
         ),          
         'xhtml+print' => array(
-            '1' => 'http://www.w3.org/TR/xhtml-print/xhtml-print10.dtd',
+            '1' => self::URI_XHTML_PRINT_1
         ),        
         'xhtml+mobile' => array(
-            '1' => 'http://www.wapforum.org/DTD/xhtml-mobile10.dtd',
-            '1.1' => 'http://www.openmobilealliance.org/tech/DTD/xhtml-mobile11.dtd',
-            '1.2' => 'http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd',
+            '1' => self::URI_XHTML_MOBILE_1,
+            '1.1' => self::URI_XHTML_MOBILE_1_1,
+            '1.2' => self::URI_XHTML_MOBILE_1_2
         ),         
         'xhtml+rdfa' => array(
-            '1' => 'http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd',
-            '1.1' => 'http://www.w3.org/MarkUp/DTD/xhtml-rdfa-2.dtd'
+            '1' => self::URI_XHTML_RDFA_1,
+            '1.1' => self::URI_XHTML_RDFA_1_1
         ),
         'xhtml+aria' => array(
             '1' => array(
-                'default' => 'http://www.w3.org/WAI/ARIA/schemata/xhtml-aria-1.dtd',
-                'alternative' => 'http://www.w3.org/MarkUp/DTD/xhtml-aria-1.dtd'
+                'default' => self::URI_XHTML_ARIA_1,
+                'alternative' => self::URI_XHTML_ARIA_1_ALTERNATIVE
             ),            
         ),
         'html+aria' => array(
-            '4.01' => 'http://www.w3.org/WAI/ARIA/schemata/html4-aria-1.dtd',            
+            '4.01' => self::URI_HTML_ARIA_4_01_1            
         ),
         'html+rdfa' => array(
             '4.01' => array(
-                '1' => 'http://www.w3.org/MarkUp/DTD/html401-rdfa-1.dtd',
-                '1.1' => 'http://www.w3.org/MarkUp/DTD/html401-rdfa11-1.dtd',
+                '1' => self::URI_HTML_RDFA_4_01_1,
+                '1.1' => self::URI_HTML_RDFA_4_01_1_1
             )
         ),
         'html+rdfalite' => array(
             '4.01' => array(
-                '1.1' => 'http://www.w3.org/MarkUp/DTD/html401-rdfalite11-1.dtd',
+                '1.1' => self::URI_HTML_RDFALITE_4_01_1_1
             )            
         )        
     );
