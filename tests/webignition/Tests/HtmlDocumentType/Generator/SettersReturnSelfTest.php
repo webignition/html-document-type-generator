@@ -23,5 +23,6 @@ class SettersReturnSelfTest extends BaseTest {
     public function testIndent() {}        
     public function testNoUri() {}
     public function testSingleline() {}
+    public function testXhtmlAria() {}
     
 }

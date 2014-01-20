@@ -8,7 +8,7 @@ class GetAllKnownTest extends BaseTest {
     
     public function testGenerateAll() {
         $generator = new Generator();        
-        $this->assertTrue(count($generator->getAllKnown()) > 0);
+        $this->assertEquals(18, count($generator->getAllKnown()));
     }
     
             

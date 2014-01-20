@@ -23,14 +23,15 @@ class Generator {
     const FPI_HTML_4_01_STRICT = '-//W3C//DTD HTML 4.01//EN';
     const FPI_HTML_4_01_TRANSITIONAL = '-//W3C//DTD HTML 4.01 Transitional//EN';
     const FPI_HTML_4_01_FRAMESET = '-//W3C//DTD HTML 4.01 Frameset//EN';    
-    const FPI_HTML_XHTML_1_STRICT = '-//W3C//DTD XHTML 1.0 Strict//EN';
-    const FPI_HTML_XHTML_1_TRANSITIONAL = '-//W3C//DTD XHTML 1.0 Transitional//EN';
-    const FPI_HTML_XHTML_1_FRAMESET = '-//W3C//DTD XHTML 1.0 Frameset//EN';
-    const FPI_HTML_XHTML_1_BASIC = '-//W3C//DTD XHTML Basic 1.0//EN';
-    const FPI_HTML_XHTML_1_1 = '-//W3C//DTD XHTML 1.1//EN';
-    const FPI_HTML_XHTML_1_1_BASIC = '-//W3C//DTD XHTML Basic 1.1//EN';
-    const FPI_HTML_XHTML_RDFA_1 = '-//W3C//DTD XHTML+RDFa 1.0//EN';
-    const FPI_HTML_XHTML_RDFA_1_1 = '-//W3C//DTD XHTML+RDFa 1.1//EN';
+    const FPI_XHTML_1_STRICT = '-//W3C//DTD XHTML 1.0 Strict//EN';
+    const FPI_XHTML_1_TRANSITIONAL = '-//W3C//DTD XHTML 1.0 Transitional//EN';
+    const FPI_XHTML_1_FRAMESET = '-//W3C//DTD XHTML 1.0 Frameset//EN';
+    const FPI_XHTML_1_BASIC = '-//W3C//DTD XHTML Basic 1.0//EN';
+    const FPI_XHTML_1_1 = '-//W3C//DTD XHTML 1.1//EN';
+    const FPI_XHTML_1_1_BASIC = '-//W3C//DTD XHTML Basic 1.1//EN';
+    const FPI_XHTML_RDFA_1 = '-//W3C//DTD XHTML+RDFa 1.0//EN';
+    const FPI_XHTML_RDFA_1_1 = '-//W3C//DTD XHTML+RDFa 1.1//EN';
+    const FPI_XHTML_ARIA_1 = '-//W3C//DTD XHTML+ARIA 1.0//EN';
     
     private $fpis = array(
         self::FPI_HTML_2,
@@ -41,14 +42,15 @@ class Generator {
         self::FPI_HTML_4_01_STRICT,
         self::FPI_HTML_4_01_TRANSITIONAL,
         self::FPI_HTML_4_01_FRAMESET,
-        self::FPI_HTML_XHTML_1_STRICT,
-        self::FPI_HTML_XHTML_1_TRANSITIONAL,
-        self::FPI_HTML_XHTML_1_FRAMESET,
-        self::FPI_HTML_XHTML_1_BASIC,
-        self::FPI_HTML_XHTML_1_1,
-        self::FPI_HTML_XHTML_1_1_BASIC,
-        self::FPI_HTML_XHTML_RDFA_1,
-        self::FPI_HTML_XHTML_RDFA_1_1
+        self::FPI_XHTML_1_STRICT,
+        self::FPI_XHTML_1_TRANSITIONAL,
+        self::FPI_XHTML_1_FRAMESET,
+        self::FPI_XHTML_1_BASIC,
+        self::FPI_XHTML_1_1,
+        self::FPI_XHTML_1_1_BASIC,
+        self::FPI_XHTML_RDFA_1,
+        self::FPI_XHTML_RDFA_1_1,
+        self::FPI_XHTML_ARIA_1
     );
     
     private $knownMatrix = array(
@@ -74,7 +76,10 @@ class Generator {
         'xhtmlrdfa' => array(
             array('version' => '1'),
             array('version' => '1.1'),            
-        )
+        ),
+        'xhtmlaria' => array(
+            array('version' => '1'),           
+        )        
     ); 
          
     
@@ -107,21 +112,24 @@ class Generator {
         'xhtml' => array(
             '1' => array(
                 'default' => array(
-                    'strict' => self::FPI_HTML_XHTML_1_STRICT,
-                    'transitional' => self::FPI_HTML_XHTML_1_TRANSITIONAL,
-                    'frameset' => self::FPI_HTML_XHTML_1_FRAMESET                   
+                    'strict' => self::FPI_XHTML_1_STRICT,
+                    'transitional' => self::FPI_XHTML_1_TRANSITIONAL,
+                    'frameset' => self::FPI_XHTML_1_FRAMESET                   
                 ),
-                'basic' => self::FPI_HTML_XHTML_1_BASIC
+                'basic' => self::FPI_XHTML_1_BASIC
             ),
             '1.1' => array(
-                'default' => self::FPI_HTML_XHTML_1_1,
-                'basic' => self::FPI_HTML_XHTML_1_1_BASIC            
+                'default' => self::FPI_XHTML_1_1,
+                'basic' => self::FPI_XHTML_1_1_BASIC            
             )
         ),
         'xhtml+rdfa' => array(
-            '1' => self::FPI_HTML_XHTML_RDFA_1,
-            '1.1' => self::FPI_HTML_XHTML_RDFA_1_1
-        )
+            '1' => self::FPI_XHTML_RDFA_1,
+            '1.1' => self::FPI_XHTML_RDFA_1_1
+        ),
+        'xhtml+aria' => array(
+            '1' => self::FPI_XHTML_ARIA_1,
+        )        
     );
     
     private $versionAndVariantToUriMap = array(
@@ -170,7 +178,10 @@ class Generator {
         'xhtml+rdfa' => array(
             '1' => 'http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd',
             '1.1' => 'http://www.w3.org/MarkUp/DTD/xhtml-rdfa-2.dtd'
-        )
+        ),
+        'xhtml+aria' => array(
+            '1' => 'http://www.w3.org/MarkUp/DTD/xhtml-aria-1.dtd',            
+        )        
     );
     
     /**
@@ -203,6 +214,14 @@ class Generator {
      * @var boolean
      */
     private $isXhtmlRdfa = false;
+    
+    
+    /**
+     * Whether the DTD is for a XHTML+Aria doctype
+     * 
+     * @var boolean
+     */
+    private $isXhtmlAria = false;
     
     
     /**
@@ -410,13 +429,13 @@ class Generator {
         $rootSubsetKey = $this->getMapRootSubsetKey();
         if (is_null($rootSubsetKey)) {
             return null;
-        }   
+        }
         
         if (!isset($values[$rootSubsetKey])) {
             return null;
         }
         
-        $rootElementSubset = $values[$rootSubsetKey];        
+        $rootElementSubset = $values[$rootSubsetKey];                
         if (!isset($rootElementSubset[$this->version])) {
             return null;
         }
@@ -469,6 +488,10 @@ class Generator {
             return 'xhtml-basic';
         }
         
+        if ($this->isXhtmlAria) {
+            return 'xhtml+aria';
+        }
+        
         return null;
     }
     
@@ -493,6 +516,7 @@ class Generator {
         $this->isXhtml = false;
         $this->isXhtmlBasic = false;
         $this->isXhtmlRdfa = false;
+        $this->isXhtmlAria = false;
         return $this;
     }
     
@@ -505,6 +529,7 @@ class Generator {
         $this->isHtml = false;
         $this->isXhtml = true;
         $this->isXhtmlRdfa = false;
+        $this->isXhtmlAria = false;
         return $this;
     } 
     
@@ -519,7 +544,18 @@ class Generator {
         $this->isXhtml = false;
         $this->isXhtmlBasic = false;
         $this->isXhtmlRdfa = true;
+        $this->isXhtmlAria = false;
         return $this;        
+    }
+    
+    
+    public function xhtmlAria() {
+        $this->isHtml = false;
+        $this->isXhtml = false;
+        $this->isXhtmlBasic = false;
+        $this->isXhtmlRdfa = false;
+        $this->isXhtmlAria = true;
+        return $this;          
     }
     
     /**
