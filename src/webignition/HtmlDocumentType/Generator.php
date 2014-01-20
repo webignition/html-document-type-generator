@@ -90,38 +90,28 @@ class Generator {
             '2' => self::FPI_HTML_2,
             '3.2' => self::FPI_HTML_3_2,
             '4' => array(
-                'default' => array(
-                    'strict' => self::FPI_HTML_4_STRICT,
-                    'transitional' => self::FPI_HTML_4_TRANSITIONAL,
-                    'frameset' => self::FPI_HTML_4_FRAMESET                   
-                )
+                'strict' => self::FPI_HTML_4_STRICT,
+                'transitional' => self::FPI_HTML_4_TRANSITIONAL,
+                'frameset' => self::FPI_HTML_4_FRAMESET
             ),
             '4.0' => array(
-                'default' => array(
-                    'strict' => self::FPI_HTML_4_STRICT,
-                    'transitional' => self::FPI_HTML_4_TRANSITIONAL,
-                    'frameset' => self::FPI_HTML_4_FRAMESET                          
-                )
+                'strict' => self::FPI_HTML_4_STRICT,
+                'transitional' => self::FPI_HTML_4_TRANSITIONAL,
+                'frameset' => self::FPI_HTML_4_FRAMESET
             ),            
             '4.01' => array(
-                'default' => array(
-                    'strict' => self::FPI_HTML_4_01_STRICT,
-                    'transitional' => self::FPI_HTML_4_01_TRANSITIONAL,
-                    'frameset' => self::FPI_HTML_4_01_FRAMESET                    
-                )
+                'strict' => self::FPI_HTML_4_01_STRICT,
+                'transitional' => self::FPI_HTML_4_01_TRANSITIONAL,
+                'frameset' => self::FPI_HTML_4_01_FRAMESET
             ),           
         ),
         'xhtml' => array(
             '1' => array(
-                'default' => array(
-                    'strict' => self::FPI_XHTML_1_STRICT,
-                    'transitional' => self::FPI_XHTML_1_TRANSITIONAL,
-                    'frameset' => self::FPI_XHTML_1_FRAMESET                   
-                )
+                'strict' => self::FPI_XHTML_1_STRICT,
+                'transitional' => self::FPI_XHTML_1_TRANSITIONAL,
+                'frameset' => self::FPI_XHTML_1_FRAMESET
             ),
-            '1.1' => array(
-                'default' => self::FPI_XHTML_1_1,        
-            )
+            '1.1' => self::FPI_XHTML_1_1
         ),
         'xhtml+basic' => array(
             '1' => self::FPI_XHTML_1_BASIC,
@@ -139,43 +129,31 @@ class Generator {
     private $versionAndVariantToUriMap = array(
         'html' => array(
             '4' => array(
-                'default' => array(
-                    'strict' => 'http://www.w3.org/TR/html4/strict.dtd',
-                    'transitional' => 'http://www.w3.org/TR/html4/loose.dtd',
-                    'frameset' => 'http://www.w3.org/TR/html4/frameset.dtd'                    
-                )
+                'strict' => 'http://www.w3.org/TR/html4/strict.dtd',
+                'transitional' => 'http://www.w3.org/TR/html4/loose.dtd',
+                'frameset' => 'http://www.w3.org/TR/html4/frameset.dtd'
             ), 
             '4.0' => array(
-                'default' => array(
-                    'strict' => 'http://www.w3.org/TR/html4/strict.dtd',
-                    'transitional' => 'http://www.w3.org/TR/html4/loose.dtd',
-                    'frameset' => 'http://www.w3.org/TR/html4/frameset.dtd'                    
-                )
+                'strict' => 'http://www.w3.org/TR/html4/strict.dtd',
+                'transitional' => 'http://www.w3.org/TR/html4/loose.dtd',
+                'frameset' => 'http://www.w3.org/TR/html4/frameset.dtd'
             ), 
             '4.01' => array(
-                'default' => array(
-                    'strict' => 'http://www.w3.org/TR/html4/strict.dtd',
-                    'transitional' => 'http://www.w3.org/TR/html4/loose.dtd',
-                    'frameset' => 'http://www.w3.org/TR/html4/frameset.dtd'                    
-                )
+                'strict' => 'http://www.w3.org/TR/html4/strict.dtd',
+                'transitional' => 'http://www.w3.org/TR/html4/loose.dtd',
+                'frameset' => 'http://www.w3.org/TR/html4/frameset.dtd'
             ),
             '5' => array(
-                'default' => array(
-                    'legacy-compat' => 'about:legacy-compat'
-                )
+                'legacy-compat' => 'about:legacy-compat'
             )
         ),
         'xhtml' => array(
             '1' => array(
-                'default' => array(
-                    'strict' => 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd',
-                    'transitional' => 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd',
-                    'frameset' => 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd'                
-                ),
+                'strict' => 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd',
+                'transitional' => 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd',
+                'frameset' => 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd'                
             ),
-            '1.1' => array(
-                'default' => 'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd',            
-            )
+            '1.1' => 'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd',
         ),
         'xhtml+basic' => array(
             '1' => 'http://www.w3.org/TR/xhtml-basic/xhtml-basic10.dtd',
@@ -458,24 +436,10 @@ class Generator {
         $versionSubset = $rootElementSubset[$this->version];
         if (is_string($versionSubset)) {
             return $versionSubset;
-        }
+        }    
         
-        $familySubset = $versionSubset[$this->getFamilySubsetKey()];         
-        if (is_string($familySubset)) {
-            return $familySubset;
-        }        
-        
-        return (isset($familySubset[$this->getVariant()])) ? $familySubset[$this->getVariant()] : null;        
-    }    
-    
-    
-    /**
-     * 
-     * @return string
-     */
-    private function getFamilySubsetKey() {
-        return 'default';
-    }    
+        return (isset($versionSubset[$this->getVariant()])) ? $versionSubset[$this->getVariant()] : null;        
+    }   
     
     
     /**
