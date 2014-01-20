@@ -146,6 +146,11 @@ class Generator {
                     'transitional' => 'http://www.w3.org/TR/html4/loose.dtd',
                     'frameset' => 'http://www.w3.org/TR/html4/frameset.dtd'                    
                 )
+            ),
+            '5' => array(
+                'default' => array(
+                    'legacy-compat' => 'about:legacy-compat'
+                )
             )
         ),
         'xhtml' => array(
@@ -255,6 +260,10 @@ class Generator {
             $parts[] = 'PUBLIC';
         }
         
+        if ($this->requiresSystemKeyword()) {
+            $parts[] = 'SYSTEM';
+        }
+        
         if ($this->hasFpi()) {
             $parts[] = '"' . $this->getFpi() . '"';
         }
@@ -355,6 +364,15 @@ class Generator {
      */
     private function requiresPublicKeyword() {
         return !($this->isHtml && $this->version == 5);
+    }
+    
+    
+    /**
+     * 
+     * @return boolean
+     */
+    private function requiresSystemKeyword() {
+        return ($this->isHtml && $this->version == 5 && $this->getVariant() == 'legacy-compat');
     }
     
     
