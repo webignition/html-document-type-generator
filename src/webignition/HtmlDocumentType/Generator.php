@@ -24,6 +24,9 @@ class Generator {
     const FPI_HTML_4_01_TRANSITIONAL = '-//W3C//DTD HTML 4.01 Transitional//EN';
     const FPI_HTML_4_01_FRAMESET = '-//W3C//DTD HTML 4.01 Frameset//EN';    
     const FPI_HTML_4_01_ARIA = '-//W3C//DTD HTML+ARIA 1.0//EN';
+    const FPI_HTML_4_01_RDFA_1 = '-//W3C//DTD HTML 4.01+RDFa 1.0//EN';
+    const FPI_HTML_4_01_RDFA_1_1 = '-//W3C//DTD HTML 4.01+RDFa 1.1//EN';
+    const FPI_HTML_4_01_RDFALITE_1_1 = '-//W3C//DTD HTML 4.01+RDFa Lite 1.1//EN';
     const FPI_XHTML_1_STRICT = '-//W3C//DTD XHTML 1.0 Strict//EN';
     const FPI_XHTML_1_TRANSITIONAL = '-//W3C//DTD XHTML 1.0 Transitional//EN';
     const FPI_XHTML_1_FRAMESET = '-//W3C//DTD XHTML 1.0 Frameset//EN';
@@ -48,6 +51,9 @@ class Generator {
         self::FPI_HTML_4_01_TRANSITIONAL,
         self::FPI_HTML_4_01_FRAMESET,
         self::FPI_HTML_4_01_ARIA,
+        self::FPI_HTML_4_01_RDFA_1,
+        self::FPI_HTML_4_01_RDFA_1_1,
+        self::FPI_HTML_4_01_RDFALITE_1_1,
         self::FPI_XHTML_1_STRICT,
         self::FPI_XHTML_1_TRANSITIONAL,
         self::FPI_XHTML_1_FRAMESET,
@@ -101,9 +107,16 @@ class Generator {
             array('version' => '1'),           
         ),
         'html+aria' => array(
-            array('version' => '4.01'),           
-        ),        
-    ); 
+            array('version' => '4.01'),
+        ),
+        'html+rdfa' => array(
+            array('version' => '4.01', 'moduleVersion' => '1'),
+            array('version' => '4.01', 'moduleVersion' => '1.1'),
+        ),
+        'html+rdfalite' => array(
+            array('version' => '4.01', 'moduleVersion' => '1.1'),
+        )        
+    );
          
     
     private $versionAndVariantToFpiMap = array(
@@ -155,7 +168,18 @@ class Generator {
         ),
         'html+aria' => array(
             '4.01' => self::FPI_HTML_4_01_ARIA
-        )          
+        ),
+        'html+rdfa' => array(
+            '4.01' => array(
+                '1' => self::FPI_HTML_4_01_RDFA_1,
+                '1.1' => self::FPI_HTML_4_01_RDFA_1_1,
+            )
+        ),
+        'html+rdfalite' => array(
+            '4.01' => array(
+                '1.1' => self::FPI_HTML_4_01_RDFALITE_1_1,
+            )            
+        )
     );
     
     private $versionAndVariantToUriMap = array(
@@ -208,7 +232,18 @@ class Generator {
         ),
         'html+aria' => array(
             '4.01' => 'http://www.w3.org/WAI/ARIA/schemata/html4-aria-1.dtd',            
-        )          
+        ),
+        'html+rdfa' => array(
+            '4.01' => array(
+                '1' => 'http://www.w3.org/MarkUp/DTD/html401-rdfa-1.dtd',
+                '1.1' => 'http://www.w3.org/MarkUp/DTD/html401-rdfa11-1.dtd',
+            )
+        ),
+        'html+rdfalite' => array(
+            '4.01' => array(
+                '1.1' => 'http://www.w3.org/MarkUp/DTD/html401-rdfalite11-1.dtd',
+            )            
+        )        
     );
     
     /**
@@ -278,8 +313,15 @@ class Generator {
     private $module = null;
     
     
+    /**
+     *
+     * @var string
+     */
+    private $moduleVersion = null;
     
-    public function generate() {
+    
+    
+    public function generate() {        
         if (!$this->hasVersion()) {
             throw new \InvalidArgumentException('Unable to generate; no version given', 1);
         }
@@ -375,6 +417,11 @@ class Generator {
                     $generator->variant($instance['variant']);
                 }
                 
+                if (isset($instance['moduleVersion'])) {
+                    $key .= '-' . str_replace('.', '', $instance['moduleVersion']);
+                    $generator->moduleVersion($instance['moduleVersion']);
+                }                
+                
                 $allDoctypes[$key] = $generator->generate();
             }
         }
@@ -389,7 +436,7 @@ class Generator {
      * @return boolean
      */
     private function isModuleCategory($category) {
-        return preg_match('/^(xhtml)|(html)\+/', $category) === 1;
+        return preg_match('/^(xhtml\+)|(html\+)/', $category) === 1;
     }
     
     
@@ -478,8 +525,9 @@ class Generator {
      * 
      * @return string|null
      */    
-    private function getMappedProperty($values) {
+    private function getMappedProperty($values) {        
         $rootSubsetKey = $this->getMapRootSubsetKey();        
+        
         if (is_null($rootSubsetKey)) {
             return null;
         }
@@ -488,18 +536,41 @@ class Generator {
             return null;
         }
         
-        $rootElementSubset = $values[$rootSubsetKey];                
+        $rootElementSubset = $values[$rootSubsetKey];                        
         if (!isset($rootElementSubset[$this->version])) {
             return null;
         }
         
         $versionSubset = $rootElementSubset[$this->version];
+        if ($this->versionSubsetHasModuleVersions($versionSubset)) {
+            if (is_null($this->moduleVersion)) {
+                $versionSubset = $versionSubset[key($versionSubset)];
+            } else {
+                $versionSubset = $versionSubset[$this->moduleVersion];
+            }
+        }        
+        
         if (is_string($versionSubset)) {
             return $versionSubset;
-        }    
+        }       
         
         return (isset($versionSubset[$this->getVariant()])) ? $versionSubset[$this->getVariant()] : null;        
-    }   
+    }  
+    
+
+    /**
+     * 
+     * @param array $versionSubset
+     * @return boolean
+     */
+    private function versionSubsetHasModuleVersions($versionSubset) {        
+        if (!is_array($versionSubset)) {
+            return false;
+        }
+        
+        $keys = array_keys($versionSubset);            
+        return preg_match('/[0-9]/', $keys[0]) > 0; 
+    }
     
     
     /**
@@ -569,7 +640,7 @@ class Generator {
      * @param string $variant
      * @return \webignition\HtmlDocumentType\Generator
      */
-    public function variant($variant) {
+    public function variant($variant) {        
         $this->variant = (string)$variant;
         return $this;
     } 
@@ -628,7 +699,7 @@ class Generator {
             return 'strict';
         }        
         
-        if ($this->isHtml && in_array($this->version, array('4', '4.01'))) {
+        if ($this->isHtml && in_array($this->version, array('4', '4.01')) && is_null($this->moduleVersion)) {
             return 'strict';
         }
         
@@ -673,6 +744,17 @@ class Generator {
      */
     public function module($module) {
         $this->module = $module;
+        return $this;
+    }
+    
+    
+    /**
+     * 
+     * @param string $version
+     * @return \webignition\HtmlDocumentType\Generator
+     */
+    public function moduleVersion($version) {
+        $this->moduleVersion = $version;
         return $this;
     }
     

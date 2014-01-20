@@ -23,5 +23,6 @@ class SettersReturnSelfTest extends BaseTest {
     public function testNoUri() {}
     public function testSingleline() {}
     public function testModule() {}
+    public function testModuleVersion() {}
     
 }
