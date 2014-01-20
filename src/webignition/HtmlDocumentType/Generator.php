@@ -15,6 +15,42 @@ class Generator {
     const DOCTYPE_PREFIX = '<!DOCTYPE html';
     const DOCTYPE_SUFFIX = '>';
     
+    const FPI_HTML_2 = '-//IETF//DTD HTML 2.0//EN';
+    const FPI_HTML_3_2 = '-//W3C//DTD HTML 3.2 Final//EN';
+    const FPI_HTML_4_STRICT = '-//W3C//DTD HTML 4.0//EN';
+    const FPI_HTML_4_TRANSITIONAL = '-//W3C//DTD HTML 4.0 Transitional//EN';
+    const FPI_HTML_4_FRAMESET = '-//W3C//DTD HTML 4.0 Frameset//EN';
+    const FPI_HTML_4_01_STRICT = '-//W3C//DTD HTML 4.01//EN';
+    const FPI_HTML_4_01_TRANSITIONAL = '-//W3C//DTD HTML 4.01 Transitional//EN';
+    const FPI_HTML_4_01_FRAMESET = '-//W3C//DTD HTML 4.01 Frameset//EN';    
+    const FPI_HTML_XHTML_1_STRICT = '-//W3C//DTD XHTML 1.0 Strict//EN';
+    const FPI_HTML_XHTML_1_TRANSITIONAL = '-//W3C//DTD XHTML 1.0 Transitional//EN';
+    const FPI_HTML_XHTML_1_FRAMESET = '-//W3C//DTD XHTML 1.0 Frameset//EN';
+    const FPI_HTML_XHTML_1_BASIC = '-//W3C//DTD XHTML Basic 1.0//EN';
+    const FPI_HTML_XHTML_1_1 = '-//W3C//DTD XHTML 1.1//EN';
+    const FPI_HTML_XHTML_1_1_BASIC = '-//W3C//DTD XHTML Basic 1.1//EN';
+    const FPI_HTML_XHTML_RDFA_1 = '-//W3C//DTD XHTML+RDFa 1.0//EN';
+    const FPI_HTML_XHTML_RDFA_1_1 = '-//W3C//DTD XHTML+RDFa 1.1//EN';
+    
+    private $fpis = array(
+        self::FPI_HTML_2,
+        self::FPI_HTML_3_2,
+        self::FPI_HTML_4_STRICT,
+        self::FPI_HTML_4_TRANSITIONAL,
+        self::FPI_HTML_4_FRAMESET,
+        self::FPI_HTML_4_01_STRICT,
+        self::FPI_HTML_4_01_TRANSITIONAL,
+        self::FPI_HTML_4_01_FRAMESET,
+        self::FPI_HTML_XHTML_1_STRICT,
+        self::FPI_HTML_XHTML_1_TRANSITIONAL,
+        self::FPI_HTML_XHTML_1_FRAMESET,
+        self::FPI_HTML_XHTML_1_BASIC,
+        self::FPI_HTML_XHTML_1_1,
+        self::FPI_HTML_XHTML_1_1_BASIC,
+        self::FPI_HTML_XHTML_RDFA_1,
+        self::FPI_HTML_XHTML_RDFA_1_1
+    );
+    
     private $knownMatrix = array(
         'html' => array(
             array('version' => '2'),
@@ -44,47 +80,47 @@ class Generator {
     
     private $versionAndVariantToFpiMap = array(
         'html' => array(
-            '2' => '-//IETF//DTD HTML 2.0//EN',
-            '3.2' => '-//W3C//DTD HTML 3.2 Final//EN',
+            '2' => self::FPI_HTML_2,
+            '3.2' => self::FPI_HTML_3_2,
             '4' => array(
                 'default' => array(
-                    'strict' => '-//W3C//DTD HTML 4.0//EN',
-                    'transitional' => '-//W3C//DTD HTML 4.0 Transitional//EN',
-                    'frameset' => '-//W3C//DTD HTML 4.0 Frameset//EN'                    
+                    'strict' => self::FPI_HTML_4_STRICT,
+                    'transitional' => self::FPI_HTML_4_TRANSITIONAL,
+                    'frameset' => self::FPI_HTML_4_FRAMESET                   
                 )
             ),
             '4.0' => array(
                 'default' => array(
-                    'strict' => '-//W3C//DTD HTML 4.0//EN',
-                    'transitional' => '-//W3C//DTD HTML 4.0 Transitional//EN',
-                    'frameset' => '-//W3C//DTD HTML 4.0 Frameset//EN'                    
+                    'strict' => self::FPI_HTML_4_STRICT,
+                    'transitional' => self::FPI_HTML_4_TRANSITIONAL,
+                    'frameset' => self::FPI_HTML_4_FRAMESET                          
                 )
             ),            
             '4.01' => array(
                 'default' => array(
-                    'strict' => '-//W3C//DTD HTML 4.01//EN',
-                    'transitional' => '-//W3C//DTD HTML 4.01 Transitional//EN',
-                    'frameset' => '-//W3C//DTD HTML 4.01 Frameset//EN'                    
+                    'strict' => self::FPI_HTML_4_01_STRICT,
+                    'transitional' => self::FPI_HTML_4_01_TRANSITIONAL,
+                    'frameset' => self::FPI_HTML_4_01_FRAMESET                    
                 )
             ),           
         ),
         'xhtml' => array(
             '1' => array(
                 'default' => array(
-                    'strict' => '-//W3C//DTD XHTML 1.0 Strict//EN',
-                    'transitional' => '-//W3C//DTD XHTML 1.0 Transitional//EN',
-                    'frameset' => '-//W3C//DTD XHTML 1.0 Frameset//EN'                   
+                    'strict' => self::FPI_HTML_XHTML_1_STRICT,
+                    'transitional' => self::FPI_HTML_XHTML_1_TRANSITIONAL,
+                    'frameset' => self::FPI_HTML_XHTML_1_FRAMESET                   
                 ),
-                'basic' => '-//W3C//DTD XHTML Basic 1.0//EN'
+                'basic' => self::FPI_HTML_XHTML_1_BASIC
             ),
             '1.1' => array(
-                'default' => '-//W3C//DTD XHTML 1.1//EN',
-                'basic' => '-//W3C//DTD XHTML Basic 1.1//EN'             
+                'default' => self::FPI_HTML_XHTML_1_1,
+                'basic' => self::FPI_HTML_XHTML_1_1_BASIC            
             )
         ),
         'xhtml+rdfa' => array(
-            '1' => '-//W3C//DTD XHTML+RDFa 1.0//EN',
-            '1.1' => '-//W3C//DTD XHTML+RDFa 1.1//EN'
+            '1' => self::FPI_HTML_XHTML_RDFA_1,
+            '1.1' => self::FPI_HTML_XHTML_RDFA_1_1
         )
     );
     
@@ -298,6 +334,15 @@ class Generator {
         }
         
         return $allDoctypes;
+    }
+    
+    
+    /**
+     * 
+     * @return array
+     */
+    public function getFpis() {
+        return $this->fpis;
     }
     
     
