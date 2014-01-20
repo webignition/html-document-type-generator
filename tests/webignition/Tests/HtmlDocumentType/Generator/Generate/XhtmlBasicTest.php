@@ -11,7 +11,7 @@ class XhtmlBasicTest extends BaseTest {
     
     public function setUp() {
         $this->generator = new Generator();
-        $this->generator->xhtml()->xhtmlBasic();        
+        $this->generator->xhtml()->xhtmlModule('basic');        
     }
     
     public function testXhtml1Default() {

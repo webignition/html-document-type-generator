@@ -69,9 +69,11 @@ class Generator {
             array('version' => '1', 'variant' => 'strict'),
             array('version' => '1', 'variant' => 'transitional'),
             array('version' => '1', 'variant' => 'frameset'),
-            array('version' => '1', 'isBasic' => true),
-            array('version' => '1.1'),
-            array('version' => '1.1', 'isBasic' => true),           
+            array('version' => '1.1'),    
+        ),        
+        'xhtml+basic' => array(
+            array('version' => '1'),
+            array('version' => '1.1'),            
         ),        
         'xhtml+rdfa' => array(
             array('version' => '1'),
@@ -115,14 +117,16 @@ class Generator {
                     'strict' => self::FPI_XHTML_1_STRICT,
                     'transitional' => self::FPI_XHTML_1_TRANSITIONAL,
                     'frameset' => self::FPI_XHTML_1_FRAMESET                   
-                ),
-                'basic' => self::FPI_XHTML_1_BASIC
+                )
             ),
             '1.1' => array(
-                'default' => self::FPI_XHTML_1_1,
-                'basic' => self::FPI_XHTML_1_1_BASIC            
+                'default' => self::FPI_XHTML_1_1,        
             )
         ),
+        'xhtml+basic' => array(
+            '1' => self::FPI_XHTML_1_BASIC,
+            '1.1' => self::FPI_XHTML_1_1_BASIC
+        ),        
         'xhtml+rdfa' => array(
             '1' => self::FPI_XHTML_RDFA_1,
             '1.1' => self::FPI_XHTML_RDFA_1_1
@@ -168,13 +172,15 @@ class Generator {
                     'transitional' => 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd',
                     'frameset' => 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd'                
                 ),
-                'basic' => 'http://www.w3.org/TR/xhtml-basic/xhtml-basic10.dtd'
             ),
             '1.1' => array(
-                'default' => 'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd',
-                'basic' => 'http://www.w3.org/TR/xhtml-basic/xhtml-basic11.dtd'               
+                'default' => 'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd',            
             )
         ),
+        'xhtml+basic' => array(
+            '1' => 'http://www.w3.org/TR/xhtml-basic/xhtml-basic10.dtd',
+            '1.1' => 'http://www.w3.org/TR/xhtml-basic/xhtml-basic11.dtd'
+        ),        
         'xhtml+rdfa' => array(
             '1' => 'http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd',
             '1.1' => 'http://www.w3.org/MarkUp/DTD/xhtml-rdfa-2.dtd'
@@ -198,14 +204,14 @@ class Generator {
      * @var boolean
      */
     private $isXhtml = false;
-    
-    
-    /**
-     * Whether the DTD string is for an XHTML Basic doctype
-     * 
-     * @var boolean
-     */
-    private $isXhtmlBasic = false;
+//    
+//    
+//    /**
+//     * Whether the DTD string is for an XHTML Basic doctype
+//     * 
+//     * @var boolean
+//     */
+//    private $isXhtmlBasic = false;
     
     
     /**
@@ -216,7 +222,7 @@ class Generator {
     
     
     /**
-     * Variant to use (such as strict, transitional, frameset, basic)
+     * Variant to use (such as strict, transitional, frameset)
      *  
      * @var string
      */
@@ -252,7 +258,7 @@ class Generator {
     
     
     /**
-     * Name of XHTML 1.1 module such as 'rdfa' or 'aria'
+     * Name of XHTML 1.1 module such as 'basic', 'rdfa' or 'aria'
      * 
      * @var string
      */
@@ -354,11 +360,6 @@ class Generator {
                 if (isset($instance['variant'])) {
                     $key .= '-' . $instance['variant'];
                     $generator->variant($instance['variant']);
-                }
-                
-                if (isset($instance['isBasic'])) {
-                    $key .= '-basic';
-                    $generator->xhtmlBasic();
                 }
                 
                 $allDoctypes[$key] = $generator->generate();
@@ -472,11 +473,7 @@ class Generator {
      * 
      * @return string
      */
-    private function getFamilySubsetKey() {        
-        if ($this->isXhtml && $this->isXhtmlBasic) {
-            return 'basic';
-        }
-        
+    private function getFamilySubsetKey() {
         return 'default';
     }    
     
@@ -492,10 +489,6 @@ class Generator {
         
         if ($this->isXhtml) {
             return (is_null($this->xhtmlModule)) ? 'xhtml' : 'xhtml+' . $this->xhtmlModule;
-        }
-        
-        if ($this->isXhtmlBasic) {
-            return 'xhtml-basic';
         }
         
         return null;
@@ -520,7 +513,7 @@ class Generator {
     public function html() {
         $this->isHtml = true;
         $this->isXhtml = false;
-        $this->isXhtmlBasic = false;
+        //$this->isXhtmlBasic = false;
         return $this;
     }
     
@@ -533,18 +526,7 @@ class Generator {
         $this->isHtml = false;
         $this->isXhtml = true;
         return $this;
-    }
-    
-    /**
-     * Generate for a XHTML Basic document
-     * 
-     * @return \webignition\HtmlDocumentType\Generator
-     */    
-    public function xhtmlBasic() {
-        $this->isXhtml = true;
-        $this->isXhtmlBasic = true;
-        return $this;        
-    }    
+    }   
     
     
     /**
