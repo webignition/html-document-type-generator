@@ -11,13 +11,13 @@ class XhtmlAriaTest extends BaseTest {
     
     public function setUp() {
         $this->generator = new Generator();
-        $this->generator->xhtmlRdfa();        
+        $this->generator->xhtml()->xhtmlModule('aria');
     }
     
     public function testXhtmlAria1Default() {
         $this->assertEquals(
                 '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+ARIA 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-aria-1.dtd">',
-                $this->generator->xhtmlAria()->version('1')->generate()
+                $this->generator->version('1')->generate()
          );        
     }    
 

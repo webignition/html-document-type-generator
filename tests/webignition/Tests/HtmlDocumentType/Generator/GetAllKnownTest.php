@@ -7,7 +7,7 @@ use webignition\HtmlDocumentType\Generator;
 class GetAllKnownTest extends BaseTest {        
     
     public function testGenerateAll() {
-        $generator = new Generator();        
+        $generator = new Generator();
         $this->assertEquals(18, count($generator->getAllKnown()));
     }
     

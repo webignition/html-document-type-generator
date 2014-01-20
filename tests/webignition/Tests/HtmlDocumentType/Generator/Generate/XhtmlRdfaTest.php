@@ -11,7 +11,7 @@ class XhtmlRdfaTest extends BaseTest {
     
     public function setUp() {
         $this->generator = new Generator();
-        $this->generator->xhtmlRdfa();        
+        $this->generator->xhtml()->xhtmlModule('rdfa');    
     }
     
     public function testXhtml1Default() {

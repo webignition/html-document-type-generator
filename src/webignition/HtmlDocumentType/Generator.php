@@ -73,11 +73,11 @@ class Generator {
             array('version' => '1.1'),
             array('version' => '1.1', 'isBasic' => true),           
         ),        
-        'xhtmlrdfa' => array(
+        'xhtml+rdfa' => array(
             array('version' => '1'),
             array('version' => '1.1'),            
         ),
-        'xhtmlaria' => array(
+        'xhtml+aria' => array(
             array('version' => '1'),           
         )        
     ); 
@@ -209,22 +209,6 @@ class Generator {
     
     
     /**
-     * Whether the DTD is for a XHTML+RDFa doctype
-     * 
-     * @var boolean
-     */
-    private $isXhtmlRdfa = false;
-    
-    
-    /**
-     * Whether the DTD is for a XHTML+Aria doctype
-     * 
-     * @var boolean
-     */
-    private $isXhtmlAria = false;
-    
-    
-    /**
      * HTML version to use
      * @var string
      */
@@ -267,6 +251,14 @@ class Generator {
     private $lowercasePrefix = false;
     
     
+    /**
+     * Name of XHTML 1.1 module such as 'rdfa' or 'aria'
+     * 
+     * @var string
+     */
+    private $xhtmlModule = null;
+    
+    
     
     public function generate() {
         if (!$this->hasVersion()) {
@@ -289,7 +281,7 @@ class Generator {
         
         if ($this->noUri === false && $this->hasUri()) {
             $parts[] = '"' . $this->getUri() . '"';
-        }        
+        }
      
         return $this->getDoctypePrefix() . $this->getPartContents($parts) . self::DOCTYPE_SUFFIX;
     }
@@ -328,7 +320,10 @@ class Generator {
         
         foreach ($this->knownMatrix as $category => $instances) {
             foreach ($instances as $instance) {
-                $key = $category.'-'.str_replace('.', '', $instance['version']);
+                $parentCategory = $category;
+                
+                $key = $parentCategory.'-'.str_replace('.', '', $instance['version']);
+                $xhtmlModule = null;
                 
                 $generator = new Generator();
                 
@@ -344,8 +339,17 @@ class Generator {
                     $generator->lowercasePrefix();
                 }
                 
-                $generator->$category();
+                if ($this->isXhtmlModuleCategory($parentCategory)) {
+                    $xhtmlModule = str_replace('xhtml+', '', $parentCategory);
+                    $parentCategory = 'xhtml';
+                }
+                
+                $generator->$parentCategory();
                 $generator->version($instance['version']);
+                
+                if (!is_null($xhtmlModule)) {
+                    $generator->xhtmlModule($xhtmlModule);
+                }
                 
                 if (isset($instance['variant'])) {
                     $key .= '-' . $instance['variant'];
@@ -362,6 +366,16 @@ class Generator {
         }
         
         return $allDoctypes;
+    }
+    
+    
+    /**
+     * 
+     * @param string $category
+     * @return boolean
+     */
+    private function isXhtmlModuleCategory($category) {
+        return preg_match('/^xhtml\+/', $category) === 1;
     }
     
     
@@ -426,7 +440,7 @@ class Generator {
      * @return string|null
      */    
     private function getMappedProperty($values) {
-        $rootSubsetKey = $this->getMapRootSubsetKey();
+        $rootSubsetKey = $this->getMapRootSubsetKey();        
         if (is_null($rootSubsetKey)) {
             return null;
         }
@@ -477,19 +491,11 @@ class Generator {
         }
         
         if ($this->isXhtml) {
-            return 'xhtml';
-        }
-        
-        if ($this->isXhtmlRdfa) {
-            return 'xhtml+rdfa';
+            return (is_null($this->xhtmlModule)) ? 'xhtml' : 'xhtml+' . $this->xhtmlModule;
         }
         
         if ($this->isXhtmlBasic) {
             return 'xhtml-basic';
-        }
-        
-        if ($this->isXhtmlAria) {
-            return 'xhtml+aria';
         }
         
         return null;
@@ -515,8 +521,6 @@ class Generator {
         $this->isHtml = true;
         $this->isXhtml = false;
         $this->isXhtmlBasic = false;
-        $this->isXhtmlRdfa = false;
-        $this->isXhtmlAria = false;
         return $this;
     }
     
@@ -528,34 +532,7 @@ class Generator {
     public function xhtml() {
         $this->isHtml = false;
         $this->isXhtml = true;
-        $this->isXhtmlRdfa = false;
-        $this->isXhtmlAria = false;
         return $this;
-    } 
-    
-
-    /**
-     * Generate for a XHTML+RDFa document
-     * 
-     * @return \webignition\HtmlDocumentType\Generator
-     */    
-    public function xhtmlRdfa() {
-        $this->isHtml = false;
-        $this->isXhtml = false;
-        $this->isXhtmlBasic = false;
-        $this->isXhtmlRdfa = true;
-        $this->isXhtmlAria = false;
-        return $this;        
-    }
-    
-    
-    public function xhtmlAria() {
-        $this->isHtml = false;
-        $this->isXhtml = false;
-        $this->isXhtmlBasic = false;
-        $this->isXhtmlRdfa = false;
-        $this->isXhtmlAria = true;
-        return $this;          
     }
     
     /**
@@ -679,6 +656,17 @@ class Generator {
      */
     public function uppercasePrefix() {
         $this->lowercasePrefix = false;
+        return $this;
+    }
+    
+    
+    /**
+     * 
+     * @param string $module
+     * @return \webignition\HtmlDocumentType\Generator
+     */
+    public function xhtmlModule($module) {
+        $this->xhtmlModule = $module;
         return $this;
     }
     
