@@ -133,5 +133,13 @@ class HtmlTest extends BaseTest {
         );
     }    
     
+    public function testHtml5LegacyCompat() {        
+        $this->assertEquals(
+'<!DOCTYPE html SYSTEM
+    "about:legacy-compat">',
+                $this->generator->version(5)->variant('legacy-compat')->generate()
+        );
+    }     
+    
 
 }

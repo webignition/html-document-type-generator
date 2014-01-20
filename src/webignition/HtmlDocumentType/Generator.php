@@ -95,7 +95,8 @@ class Generator {
             array('version' => '4.01', 'variant' => 'strict'),
             array('version' => '4.01', 'variant' => 'transitional'),
             array('version' => '4.01', 'variant' => 'frameset'),           
-            array('version' => '5')
+            array('version' => '5'),
+            array('version' => '5', 'variant' => 'legacy-compat')
         ),
         'xhtml' => array(
             array('version' => '1', 'variant' => 'strict'),
