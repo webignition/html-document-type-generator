@@ -313,6 +313,20 @@ class Generator {
     
     
     /**
+     *
+     * @var boolean
+     */
+    private $lowercaseFpi = false;
+    
+    
+    /**
+     *
+     * @var boolean
+     */
+    private $uppercaseFpi = false;
+    
+    
+    /**
      * Name of (X)HTML module such as 'basic', 'print', 'mobile', 'rdfa' or 'aria'
      * 
      * @var string
@@ -406,6 +420,14 @@ class Generator {
                 if ($this->lowercasePrefix === true) {
                     $generator->lowercasePrefix();
                 }
+                
+                if ($this->lowercaseFpi === true) {
+                    $generator->lowercaseFpi();
+                }
+                
+                if ($this->uppercaseFpi === true) {
+                    $generator->uppercaseFpi();
+                }                
                 
                 if ($this->isModuleCategory($parentCategory)) {
                     $module = $this->getModuleFromCategory($parentCategory);
@@ -516,7 +538,20 @@ class Generator {
      * @return string|null
      */
     private function getFpi() {
-        return $this->getMappedProperty($this->versionAndVariantToFpiMap);
+        $value = $this->getMappedProperty($this->versionAndVariantToFpiMap);
+        if (is_null($value)) {
+            return $value;
+        }
+        
+        if ($this->lowercaseFpi === true) {
+            return strtolower($value);
+        }
+
+        if ($this->uppercaseFpi === true) {
+            return strtoupper($value);
+        } 
+        
+        return $value;
     }    
     
     /**
@@ -780,5 +815,37 @@ class Generator {
         $this->moduleVersion = $version;
         return $this;
     }
+    
+    
+    /**
+     * 
+     * @return \webignition\HtmlDocumentType\Generator
+     */
+    public function lowercaseFpi() {
+        $this->lowercaseFpi = true;
+        $this->uppercaseFpi = false;
+        return $this;
+    }
+    
+    /**
+     * 
+     * @return \webignition\HtmlDocumentType\Generator
+     */    
+    public function uppercaseFpi() {
+        $this->lowercaseFpi = false;
+        $this->uppercaseFpi = true;
+        return $this;        
+    }
+    
+    /**
+     * 
+     * @return \webignition\HtmlDocumentType\Generator
+     */    
+    public function defaultCaseFpi() {
+        $this->lowercaseFpi = false;
+        $this->uppercaseFpi = false;
+        return $this;          
+    }
+    
     
 }

@@ -24,5 +24,8 @@ class SettersReturnSelfTest extends BaseTest {
     public function testSingleline() {}
     public function testModule() {}
     public function testModuleVersion() {}
+    public function testLowercaseFpi() {}
+    public function testUppercaseFpi() {}
+    public function testDefaultcaseFpi() {}
     
 }
