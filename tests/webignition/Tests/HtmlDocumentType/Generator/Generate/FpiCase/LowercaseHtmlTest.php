@@ -15,6 +15,45 @@ class LowercaseHtmlTest extends BaseTest {
         $this->generator->html()->lowercaseFpi();
     }
     
+/**
+html-2
+html-2-alternative
+html-32
+html-32-alternative1
+html-32-alternative2
+html-4-strict
+html-4-strict-alternative
+html-4-strict-401-alternative1
+html-4-strict-401-alternative2
+html-4-strict-401-alternative3
+html-4-strict-401-alternative4
+html-4-transitional
+html-4-transitional-alternative
+html-4-transitional-401-alternative1
+html-4-transitional-401-alternative2
+html-4-transitional-401-alternative3
+html-4-transitional-401-alternative4
+html-4-frameset
+html-4-frameset-alternative
+html-4-frameset-401-alternative1
+html-4-frameset-401-alternative2
+html-4-frameset-401-alternative3
+html-4-frameset-401-alternative4
+html-401-strict
+html-401-strict-alternative1
+html-401-strict-alternative2
+html-401-strict-alternative3
+html-401-transitional
+html-401-transitional-alternative1
+html-401-transitional-alternative2
+html-401-transitional-alternative3
+html-401-frameset
+html-401-frameset-alternative1
+html-401-frameset-alternative2
+html-401-frameset-alternative3
+html-5
+ */    
+    
     public function testHtml2Default() {
         $this->assertEquals(
                 '<!DOCTYPE html PUBLIC "' . strtolower(FpiList::FPI_HTML_2) . '">',
@@ -24,7 +63,7 @@ class LowercaseHtmlTest extends BaseTest {
     
     public function testHtml2Alternative() {
         $this->assertEquals(
-                '<!DOCTYPE html PUBLIC "' . strtolower(FpiList::FPI_HTML_2_ALT) . '">',
+                '<!DOCTYPE html PUBLIC "' . strtolower(FpiList::FPI_HTML_2_ALTERNATIVE) . '">',
                 $this->generator->version(2)->variant('alternative')->generate()
          );
     }       
@@ -38,14 +77,14 @@ class LowercaseHtmlTest extends BaseTest {
     
     public function testHtml32Alternative1() {
         $this->assertEquals(
-                '<!DOCTYPE html PUBLIC "' . strtolower(FpiList::FPI_HTML_3_2_ALT1) . '">',
+                '<!DOCTYPE html PUBLIC "' . strtolower(FpiList::FPI_HTML_3_2_ALTERNATIVE1) . '">',
                 $this->generator->version('3.2')->variant('alternative1')->generate()
         );
     } 
     
     public function testHtml32Alternative2() {
         $this->assertEquals(
-                '<!DOCTYPE html PUBLIC "' . strtolower(FpiList::FPI_HTML_3_2_ALT2) . '">',
+                '<!DOCTYPE html PUBLIC "' . strtolower(FpiList::FPI_HTML_3_2_ALTERNATIVE2) . '">',
                 $this->generator->version('3.2')->variant('alternative2')->generate()
         );
     }     

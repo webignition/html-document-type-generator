@@ -16,39 +16,39 @@ namespace webignition\HtmlDocumentType;
 class Generator {
     
     const DOCTYPE_PREFIX = '<!DOCTYPE html';
-    const DOCTYPE_SUFFIX = '>';       
+    const DOCTYPE_SUFFIX = '>';
      
     private $fpis = array(
-        FpiList::FPI_HTML_2,
-        FpiList::FPI_HTML_2_ALT,
-        FpiList::FPI_HTML_3_2,
-        FpiList::FPI_HTML_3_2_ALT1,
-        FpiList::FPI_HTML_3_2_ALT2,
-        FpiList::FPI_HTML_4_STRICT,
-        FpiList::FPI_HTML_4_TRANSITIONAL,
-        FpiList::FPI_HTML_4_FRAMESET,
-        FpiList::FPI_HTML_4_01_STRICT,
-        FpiList::FPI_HTML_4_01_TRANSITIONAL,
-        FpiList::FPI_HTML_4_01_FRAMESET,
-        FpiList::FPI_HTML_4_01_ARIA,
-        FpiList::FPI_HTML_4_01_RDFA_1,
-        FpiList::FPI_HTML_4_01_RDFA_1_1,
-        FpiList::FPI_HTML_4_01_RDFALITE_1_1,
-        FpiList::FPI_HTML_ISO_15445,
-        FpiList::FPI_HTML_ISO_15445_ALT,
-        FpiList::FPI_XHTML_1_STRICT,
-        FpiList::FPI_XHTML_1_TRANSITIONAL,
-        FpiList::FPI_XHTML_1_FRAMESET,
-        FpiList::FPI_XHTML_1_BASIC,        
-        FpiList::FPI_XHTML_1_PRINT,
-        FpiList::FPI_XHTML_MOBILE_1,
-        FpiList::FPI_XHTML_MOBILE_1_1,
-        FpiList::FPI_XHTML_MOBILE_1_2,        
-        FpiList::FPI_XHTML_1_1,
-        FpiList::FPI_XHTML_1_1_BASIC,
-        FpiList::FPI_XHTML_RDFA_1,
-        FpiList::FPI_XHTML_RDFA_1_1,
-        FpiList::FPI_XHTML_ARIA_1
+        'html-2' => FpiList::FPI_HTML_2,
+        'html-2-alternative' => FpiList::FPI_HTML_2_ALTERNATIVE,
+        'html-32' => FpiList::FPI_HTML_3_2,
+        'html-32-alternative1' => FpiList::FPI_HTML_3_2_ALTERNATIVE1,
+        'html-32-alternative2' => FpiList::FPI_HTML_3_2_ALTERNATIVE2,
+        'html-4-strict' => FpiList::FPI_HTML_4_STRICT,
+        'html-4-transitional' => FpiList::FPI_HTML_4_TRANSITIONAL,
+        'html-4-frameset' => FpiList::FPI_HTML_4_FRAMESET,
+        'html-401-strict' => FpiList::FPI_HTML_4_01_STRICT,
+        'html-401-transitional' => FpiList::FPI_HTML_4_01_TRANSITIONAL,
+        'html-401-frameset' => FpiList::FPI_HTML_4_01_FRAMESET,
+        'html+aria-401' => FpiList::FPI_HTML_4_01_ARIA,
+        'html+rdfa-401-1' => FpiList::FPI_HTML_4_01_RDFA_1,
+        'html+rdfa-401-11' => FpiList::FPI_HTML_4_01_RDFA_1_1,
+        'html+rdfalite-401-11' => FpiList::FPI_HTML_4_01_RDFALITE_1_1,
+        'html+iso15445-1' => FpiList::FPI_HTML_ISO_15445,
+        'html+iso15445-1-alternative' => FpiList::FPI_HTML_ISO_15445_ALTERNATIVE,
+        'xhtml-1-strict' => FpiList::FPI_XHTML_1_STRICT,
+        'xhtml-1-transitional' => FpiList::FPI_XHTML_1_TRANSITIONAL,
+        'xhtml-1-frameset' => FpiList::FPI_XHTML_1_FRAMESET,
+        'xhtml+basic-1' => FpiList::FPI_XHTML_1_BASIC,        
+        'xhtml+print-1' => FpiList::FPI_XHTML_1_PRINT,
+        'xhtml+mobile-1' => FpiList::FPI_XHTML_MOBILE_1,
+        'xhtml+mobile-11' => FpiList::FPI_XHTML_MOBILE_1_1,
+        'xhtml+mobile-12' => FpiList::FPI_XHTML_MOBILE_1_2,        
+        'xhtml-11' => FpiList::FPI_XHTML_1_1,
+        'xhtml+basic-11' => FpiList::FPI_XHTML_1_1_BASIC,
+        'xhtml+rdfa-1' => FpiList::FPI_XHTML_RDFA_1,
+        'xhtml+rdfa-11' => FpiList::FPI_XHTML_RDFA_1_1,
+        'xhtml+aria-1' => FpiList::FPI_XHTML_ARIA_1
     );
     
     private $knownMatrix = array(
@@ -59,26 +59,71 @@ class Generator {
             array('version' => '3.2', 'variant' => 'alternative1'),
             array('version' => '3.2', 'variant' => 'alternative2'),
             array('version' => '4', 'variant' => 'strict'),
+            array('version' => '4', 'variant' => 'strict-alternative'),
+            array('version' => '4', 'variant' => 'strict-401-alternative1'),
+            array('version' => '4', 'variant' => 'strict-401-alternative2'),
+            array('version' => '4', 'variant' => 'strict-401-alternative3'),
+            array('version' => '4', 'variant' => 'strict-401-alternative4'),
             array('version' => '4', 'variant' => 'transitional'),
+            array('version' => '4', 'variant' => 'transitional-alternative'),
+            array('version' => '4', 'variant' => 'transitional-401-alternative1'),
+            array('version' => '4', 'variant' => 'transitional-401-alternative2'),
+            array('version' => '4', 'variant' => 'transitional-401-alternative3'),
+            array('version' => '4', 'variant' => 'transitional-401-alternative4'),
             array('version' => '4', 'variant' => 'frameset'),
+            array('version' => '4', 'variant' => 'frameset-alternative'),
+            array('version' => '4', 'variant' => 'frameset-401-alternative1'),
+            array('version' => '4', 'variant' => 'frameset-401-alternative2'),
+            array('version' => '4', 'variant' => 'frameset-401-alternative3'),
+            array('version' => '4', 'variant' => 'frameset-401-alternative4'),
             array('version' => '4.01', 'variant' => 'strict'),
+            array('version' => '4.01', 'variant' => 'strict-alternative1'),
+            array('version' => '4.01', 'variant' => 'strict-alternative2'),
+            array('version' => '4.01', 'variant' => 'strict-alternative3'),
             array('version' => '4.01', 'variant' => 'transitional'),
-            array('version' => '4.01', 'variant' => 'frameset'),           
+            array('version' => '4.01', 'variant' => 'transitional-alternative1'),
+            array('version' => '4.01', 'variant' => 'transitional-alternative2'),
+            array('version' => '4.01', 'variant' => 'transitional-alternative3'),
+            array('version' => '4.01', 'variant' => 'frameset'),
+            array('version' => '4.01', 'variant' => 'frameset-alternative1'),
+            array('version' => '4.01', 'variant' => 'frameset-alternative2'),
+            array('version' => '4.01', 'variant' => 'frameset-alternative3'),
             array('version' => '5'),
             array('version' => '5', 'variant' => 'legacy-compat')
         ),
         'xhtml' => array(
             array('version' => '1', 'variant' => 'strict'),
+            array('version' => '1', 'variant' => 'strict-alternative1'),
+            array('version' => '1', 'variant' => 'strict-alternative2'),
+            array('version' => '1', 'variant' => 'strict-alternative3'),
             array('version' => '1', 'variant' => 'transitional'),
+            array('version' => '1', 'variant' => 'transitional-alternative1'),
+            array('version' => '1', 'variant' => 'transitional-alternative2'),
+            array('version' => '1', 'variant' => 'transitional-alternative3'),
             array('version' => '1', 'variant' => 'frameset'),
-            array('version' => '1.1'),    
+            array('version' => '1', 'variant' => 'frameset-alternative1'),
+            array('version' => '1', 'variant' => 'frameset-alternative2'),
+            array('version' => '1', 'variant' => 'frameset-alternative3'),
+            array('version' => '1.1'),
+            array('version' => '1.1', 'variant' => 'alternative1'), 
+            array('version' => '1.1', 'variant' => 'alternative2'), 
+            array('version' => '1.1', 'variant' => 'alternative3'),
         ),        
         'xhtml+basic' => array(
             array('version' => '1'),
+            array('version' => '1', 'variant' => 'alternative1'),
+            array('version' => '1', 'variant' => 'alternative2'),
+            array('version' => '1', 'variant' => 'alternative3'),
             array('version' => '1.1'),            
+            array('version' => '1.1', 'variant' => 'alternative1'),
+            array('version' => '1.1', 'variant' => 'alternative2'),
+            array('version' => '1.1', 'variant' => 'alternative3'),            
         ),        
         'xhtml+print' => array(
             array('version' => '1'),          
+            array('version' => '1', 'variant' => 'alternative1'),
+            array('version' => '1', 'variant' => 'alternative2'),
+            array('version' => '1', 'variant' => 'alternative3'),            
         ),              
         'xhtml+mobile' => array(
             array('version' => '1'),
@@ -114,22 +159,17 @@ class Generator {
         'html' => array(
             '2' => array(
                 'default' => FpiList::FPI_HTML_2,
-                'alternative' => FpiList::FPI_HTML_2_ALT,
+                'alternative' => FpiList::FPI_HTML_2_ALTERNATIVE,
             ),
             '3.2' => array(
                 'default' => FpiList::FPI_HTML_3_2,
-                'alternative1' => FpiList::FPI_HTML_3_2_ALT1,
-                'alternative2' => FpiList::FPI_HTML_3_2_ALT2
+                'alternative1' => FpiList::FPI_HTML_3_2_ALTERNATIVE1,
+                'alternative2' => FpiList::FPI_HTML_3_2_ALTERNATIVE2
             ),
             '4' => array(
                 'strict' => FpiList::FPI_HTML_4_STRICT,
                 'transitional' => FpiList::FPI_HTML_4_TRANSITIONAL,
-                'frameset' => FpiList::FPI_HTML_4_FRAMESET
-            ),
-            '4.0' => array(
-                'strict' => FpiList::FPI_HTML_4_STRICT,
-                'transitional' => FpiList::FPI_HTML_4_TRANSITIONAL,
-                'frameset' => FpiList::FPI_HTML_4_FRAMESET
+                'frameset' => FpiList::FPI_HTML_4_FRAMESET,
             ),            
             '4.01' => array(
                 'strict' => FpiList::FPI_HTML_4_01_STRICT,
@@ -181,7 +221,7 @@ class Generator {
         'html+iso15445' => array(
             '1' => array(
                 'default' => FpiList::FPI_HTML_ISO_15445,
-                'alternative' => FpiList::FPI_HTML_ISO_15445_ALT,
+                'alternative' => FpiList::FPI_HTML_ISO_15445_ALTERNATIVE,
             )
         )
     );
@@ -190,18 +230,37 @@ class Generator {
         'html' => array(
             '4' => array(
                 'strict' => UriList::URI_HTML_4_STRICT,
+                'strict-alternative' => UriList::URI_HTML_4_STRICT_ALTERNATIVE,
+                '401-strict' => UriList::URI_HTML_4_01_STRICT,
+                '401-strict-alternative1' => UriList::URI_HTML_4_01_STRICT_ALTERNATIVE1,
+                '401-strict-alternative2' => UriList::URI_HTML_4_01_STRICT_ALTERNATIVE2,
+                '401-strict-alternative3' => UriList::URI_HTML_4_01_STRICT_ALTERNATIVE3,
                 'transitional' => UriList::URI_HTML_4_TRANSITIONAL,
-                'frameset' => UriList::URI_HTML_4_FRAMESET
-            ), 
-            '4.0' => array(
-                'strict' => UriList::URI_HTML_4_STRICT,
-                'transitional' => UriList::URI_HTML_4_TRANSITIONAL,
-                'frameset' => UriList::URI_HTML_4_FRAMESET
+                'transitional-alternative' => UriList::URI_HTML_4_TRANSITIONAL_ALTERNATIVE,
+                '401-transitional' => UriList::URI_HTML_4_01_TRANSITIONAL,
+                '401-transitional-alternative1' => UriList::URI_HTML_4_01_TRANSITIONAL_ALTERNATIVE1,
+                '401-transitional-alternative2' => UriList::URI_HTML_4_01_TRANSITIONAL_ALTERNATIVE2,
+                '401-transitional-alternative3' => UriList::URI_HTML_4_01_TRANSITIONAL_ALTERNATIVE3,
+                'frameset' => UriList::URI_HTML_4_FRAMESET,
+                'frameset-alternative' => UriList::URI_HTML_4_FRAMESET_ALTERNATIVE,
+                '401-frameset' => UriList::URI_HTML_4_01_FRAMESET,
+                '401-frameset-alternative1' => UriList::URI_HTML_4_01_FRAMESET_ALTERNATIVE1,
+                '401-frameset-alternative2' => UriList::URI_HTML_4_01_FRAMESET_ALTERNATIVE2,
+                '401-frameset-alternative3' => UriList::URI_HTML_4_01_FRAMESET_ALTERNATIVE3,
             ), 
             '4.01' => array(
                 'strict' => UriList::URI_HTML_4_01_STRICT,
+                'strict-alternative1' => UriList::URI_HTML_4_01_STRICT_ALTERNATIVE1,
+                'strict-alternative2' => UriList::URI_HTML_4_01_STRICT_ALTERNATIVE2,
+                'strict-alternative3' => UriList::URI_HTML_4_01_STRICT_ALTERNATIVE3,
                 'transitional' => UriList::URI_HTML_4_01_TRANSITIONAL,
-                'frameset' => UriList::URI_HTML_4_01_FRAMESET
+                'transitional-alternative1' => UriList::URI_HTML_4_01_TRANSITIONAL_ALTERNATIVE1,
+                'transitional-alternative2' => UriList::URI_HTML_4_01_TRANSITIONAL_ALTERNATIVE2,
+                'transitional-alternative3' => UriList::URI_HTML_4_01_TRANSITIONAL_ALTERNATIVE3,
+                'frameset' => UriList::URI_HTML_4_01_FRAMESET,
+                'frameset-alternative1' => UriList::URI_HTML_4_01_FRAMESET_ALTERNATIVE1,
+                'frameset-alternative2' => UriList::URI_HTML_4_01_FRAMESET_ALTERNATIVE2,
+                'frameset-alternative3' => UriList::URI_HTML_4_01_FRAMESET_ALTERNATIVE3
             ),
             '5' => array(
                 'legacy-compat' => UriList::URI_HTML_5_LEGACY_COMPAT
@@ -210,17 +269,46 @@ class Generator {
         'xhtml' => array(
             '1' => array(
                 'strict' => UriList::URI_XHTML_1_STRICT,
+                'strict-alternative1' => UriList::URI_XHTML_1_STRICT_ALTERNATIVE1,
+                'strict-alternative2' => UriList::URI_XHTML_1_STRICT_ALTERNATIVE2,
+                'strict-alternative3' => UriList::URI_XHTML_1_STRICT_ALTERNATIVE3,
                 'transitional' => UriList::URI_XHTML_1_TRANSITIONAL,
-                'frameset' => UriList::URI_XHTML_1_FRAMESET
+                'transitional-alternative1' => UriList::URI_XHTML_1_TRANSITIONAL_ALTERNATIVE1,
+                'transitional-alternative2' => UriList::URI_XHTML_1_TRANSITIONAL_ALTERNATIVE2,
+                'transitional-alternative3' => UriList::URI_XHTML_1_TRANSITIONAL_ALTERNATIVE3,
+                'frameset' => UriList::URI_XHTML_1_FRAMESET,
+                'frameset-alternative1' => UriList::URI_XHTML_1_FRAMESET_ALTERNATIVE1,
+                'frameset-alternative2' => UriList::URI_XHTML_1_FRAMESET_ALTERNATIVE2,
+                'frameset-alternative3' => UriList::URI_XHTML_1_FRAMESET_ALTERNATIVE3
             ),
-            '1.1' => UriList::URI_XHTML_1_1,
+            '1.1' => array(
+                'strict' => UriList::URI_XHTML_1_1,
+                'alternative1' => UriList::URI_XHTML_1_1_ALTERNATIVE1,
+                'alternative2' => UriList::URI_XHTML_1_1_ALTERNATIVE2,
+                'alternative3' => UriList::URI_XHTML_1_1_ALTERNATIVE3,
+            )
         ),
         'xhtml+basic' => array(
-            '1' => UriList::URI_XHTML_BASIC_1,
-            '1.1' => UriList::URI_XHTML_BASIC_1_1
+            '1' => array(
+                'strict' => UriList::URI_XHTML_BASIC_1,
+                'alternative1' => UriList::URI_XHTML_BASIC_1_ALTERNATIVE1,
+                'alternative2' => UriList::URI_XHTML_BASIC_1_ALTERNATIVE2,
+                'alternative3' => UriList::URI_XHTML_BASIC_1_ALTERNATIVE3,
+            ),
+            '1.1' => array(
+                'strict' => UriList::URI_XHTML_BASIC_1_1,
+                'alternative1' => UriList::URI_XHTML_BASIC_1_1_ALTERNATIVE_1,
+                'alternative2' => UriList::URI_XHTML_BASIC_1_1_ALTERNATIVE_2,
+                'alternative3' => UriList::URI_XHTML_BASIC_1_1_ALTERNATIVE_3,
+            ),
         ),          
         'xhtml+print' => array(
-            '1' => UriList::URI_XHTML_PRINT_1
+            '1' => array(
+                'strict' => UriList::URI_XHTML_PRINT_1,
+                'alternative1' => UriList::URI_XHTML_PRINT_1_ALTERNATIVE1,
+                'alternative2' => UriList::URI_XHTML_PRINT_1_ALTERNATIVE2,
+                'alternative3' => UriList::URI_XHTML_PRINT_1_ALTERNATIVE3,
+            ),
         ),        
         'xhtml+mobile' => array(
             '1' => UriList::URI_XHTML_MOBILE_1,
@@ -500,8 +588,7 @@ class Generator {
      */
     public function getFpis() {
         return $this->fpis;
-    }
-    
+    }    
     
 
     /**
@@ -594,10 +681,42 @@ class Generator {
         
         if (is_string($versionSubset)) {
             return $versionSubset;
-        }       
+        }
         
-        return (isset($versionSubset[$this->getVariant()])) ? $versionSubset[$this->getVariant()] : null;        
-    }  
+        $variant = $this->getVariant();
+        
+        if (isset($versionSubset[$variant])) {
+            return $versionSubset[$variant];
+        }
+        
+        $variants = $this->getAlternativeVariants($variant);
+        
+        foreach ($variants as $variant) {
+            if (isset($versionSubset[$variant])) {
+                return $versionSubset[$variant];
+            }
+        }
+        
+        return null;
+    }
+    
+    
+    private function getAlternativeVariants($variant) {
+        $variants = array();
+        
+        if (preg_match('/-alternative[0-9]?$/', $variant)) {
+            $variantParts = explode('-', preg_replace('/-alternative[0-9]?$/', '', $variant));
+            $currentVariantParts = array();
+            
+            foreach ($variantParts as $variantPart) {
+                $currentVariantParts[] = $variantPart;
+                $variants[] = implode('-', $currentVariantParts);
+            }
+        }
+        
+        return $variants;
+    }
+    
     
 
     /**
@@ -672,7 +791,12 @@ class Generator {
      * @return \webignition\HtmlDocumentType\Generator
      */
     public function version($version) {
-        $this->version = (string)$version;
+        $version = trim($version);
+        if (preg_match('/\.0$/', $version)) {
+            $version = preg_replace('/\.0$/', '', $version);
+        }
+        
+        $this->version = $version;
         return $this;
     }    
     
@@ -739,7 +863,7 @@ class Generator {
         
         if ($this->isXhtml && $this->module == 'aria') {
             return 'default';
-        }        
+        }       
         
         if ($this->isXhtml) {
             return 'strict';

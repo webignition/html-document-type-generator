@@ -24,7 +24,7 @@ class UppercaseHtmlTest extends BaseTest {
     
     public function testHtml2Alternative() {
         $this->assertEquals(
-                '<!DOCTYPE html PUBLIC "' . strtoupper(FpiList::FPI_HTML_2_ALT) . '">',
+                '<!DOCTYPE html PUBLIC "' . strtoupper(FpiList::FPI_HTML_2_ALTERNATIVE) . '">',
                 $this->generator->version(2)->variant('alternative')->generate()
          );
     }       
@@ -38,14 +38,14 @@ class UppercaseHtmlTest extends BaseTest {
     
     public function testHtml32Alternative1() {
         $this->assertEquals(
-                '<!DOCTYPE html PUBLIC "' . strtoupper(FpiList::FPI_HTML_3_2_ALT1) . '">',
+                '<!DOCTYPE html PUBLIC "' . strtoupper(FpiList::FPI_HTML_3_2_ALTERNATIVE1) . '">',
                 $this->generator->version('3.2')->variant('alternative1')->generate()
         );
     } 
     
     public function testHtml32Alternative2() {
         $this->assertEquals(
-                '<!DOCTYPE html PUBLIC "' . strtoupper(FpiList::FPI_HTML_3_2_ALT2) . '">',
+                '<!DOCTYPE html PUBLIC "' . strtoupper(FpiList::FPI_HTML_3_2_ALTERNATIVE2) . '">',
                 $this->generator->version('3.2')->variant('alternative2')->generate()
         );
     }     
