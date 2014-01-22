@@ -8,11 +8,6 @@ class GetAllKnownTest extends BaseTest {
     
     public function testGenerateAll() {
         $generator = new Generator(); 
-        
-//        foreach ($generator->getAllKnown() as $key => $value) {
-//            echo $key . "\n";
-//        }
-//        exit();
 
         $this->assertEquals(array(
             'html-2' => '<!DOCTYPE html PUBLIC "-//IETF//DTD HTML//EN">',

@@ -61,17 +61,20 @@ class FpiToUriMap {
         FpiList::FPI_XHTML_1_STRICT => array(
             UriList::URI_XHTML_1_STRICT,
             UriList::URI_XHTML_1_STRICT_ALTERNATIVE1,
-            UriList::URI_XHTML_1_STRICT_ALTERNATIVE2
+            UriList::URI_XHTML_1_STRICT_ALTERNATIVE2,
+            UriList::URI_XHTML_1_STRICT_ALTERNATIVE3,
         ),
         FpiList::FPI_XHTML_1_TRANSITIONAL => array(
             UriList::URI_XHTML_1_TRANSITIONAL,
             UriList::URI_XHTML_1_TRANSITIONAL_ALTERNATIVE1,
             UriList::URI_XHTML_1_TRANSITIONAL_ALTERNATIVE2,
+            UriList::URI_XHTML_1_TRANSITIONAL_ALTERNATIVE3,
         ),
         FpiList::FPI_XHTML_1_FRAMESET => array(
             UriList::URI_XHTML_1_FRAMESET,
             UriList::URI_XHTML_1_FRAMESET_ALTERNATIVE1,
             UriList::URI_XHTML_1_FRAMESET_ALTERNATIVE2,
+            UriList::URI_XHTML_1_FRAMESET_ALTERNATIVE3,
         ),
         FpiList::FPI_XHTML_1_BASIC => array(
             UriList::URI_XHTML_BASIC_1,
