@@ -1,4 +1,1 @@
-html-document-type-generator
-============================
-
-Generate a doctype for a given HTML version and variant
+This package has been abandoned and superseded by [webignition/html-document-type](https://github.com/webignition/html-document-type)
